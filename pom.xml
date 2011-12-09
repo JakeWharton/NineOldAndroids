@@ -73,8 +73,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<java.version>1.6</java.version>
-		<android.version>1.5_r4</android.version>
-		<android.platform>3</android.platform>
+		<android.version>1.6_r2</android.version>
+		<android.platform>4</android.platform>
 	</properties>
 
 	<dependencyManagement>
