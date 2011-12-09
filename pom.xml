@@ -6,7 +6,7 @@
 	<groupId>com.jakewharton</groupId>
 	<artifactId>nine-old-androids-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>Nine Old Androids (Parent)</name>
 	<description>Android library for using the Honeycomb animation API on all versions of the platform back to 1.0!</description>
