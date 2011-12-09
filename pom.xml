@@ -20,7 +20,7 @@
 
 	<scm>
 		<url>http://github.com/JakeWharton/NineOldAndroids/</url>
-		<connection>scm:git:git://github.com/JakeWharton/NineOldAndroids</connection>
+		<connection>scm:git:git://github.com/JakeWharton/NineOldAndroids.git</connection>
 		<developerConnection>scm:git:git@github.com:JakeWharton/NineOldAndroids.git</developerConnection>
 	</scm>
 
