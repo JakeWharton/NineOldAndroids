@@ -20,6 +20,31 @@ Take a look at a few demos taken from the [platform ApiDemos][3] in the
 `sample/` folder. You can also try it out on the [Android Market][4].
 
 
+Including In Your Project
+-------------------------
+
+This library is presented as a `.jar` file which you can include in the `libs/`
+folder of your application. You can download the latest version from the
+[GitHub downloads page][5].
+
+If you are a Maven user you can easily include the library by specifying it as
+a dependency:
+
+    <dependency>
+      <groupId>com.jakewharton</groupId>
+      <artifactId>nine-old-androids</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+You must also include the following repository:
+
+    <repository>
+      <id>com.jakewharton</id>
+      <url>http://r.jakewharton.com/maven/release</url>
+    </repository>
+
+
+
 
 Developed By
 ============
@@ -51,3 +76,4 @@ License
  [2]: http://developer.android.com/reference/android/view/animation/package-summary.html
  [3]: http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/animation/index.html
  [4]: https://market.android.com/details?id=com.jakewharton.nineoldandroids.sample
+ [5]: https://github.com/JakeWharton/NineOldAndroids/downloads
