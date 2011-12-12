@@ -119,8 +119,8 @@ public class AnimatorInflater {
             } else if (name.equals("set")) {
                 anim = new AnimatorSet();
                 TypedArray a = c.obtainStyledAttributes(attrs,
-                        com.jakewharton.nineoldandroids.internal.RR.styleable.AnimatorSet);
-                int ordering = a.getInt(com.jakewharton.nineoldandroids.internal.RR.styleable.AnimatorSet_ordering,
+                        com.jakewharton.nineoldandroids.internal.FakeR.styleable.AnimatorSet);
+                int ordering = a.getInt(com.jakewharton.nineoldandroids.internal.FakeR.styleable.AnimatorSet_ordering,
                         TOGETHER);
                 createAnimatorFromXml(c, parser, attrs, (AnimatorSet) anim,  ordering);
                 a.recycle();
@@ -160,9 +160,9 @@ public class AnimatorInflater {
         loadAnimator(context, attrs, anim);
 
         TypedArray a =
-                context.obtainStyledAttributes(attrs, com.jakewharton.nineoldandroids.internal.RR.styleable.PropertyAnimator);
+                context.obtainStyledAttributes(attrs, com.jakewharton.nineoldandroids.internal.FakeR.styleable.PropertyAnimator);
 
-        String propertyName = a.getString(com.jakewharton.nineoldandroids.internal.RR.styleable.PropertyAnimator_propertyName);
+        String propertyName = a.getString(com.jakewharton.nineoldandroids.internal.FakeR.styleable.PropertyAnimator_propertyName);
 
         anim.setPropertyName(propertyName);
 
@@ -182,13 +182,13 @@ public class AnimatorInflater {
             throws NotFoundException {
 
         TypedArray a =
-                context.obtainStyledAttributes(attrs, com.jakewharton.nineoldandroids.internal.RR.styleable.Animator);
+                context.obtainStyledAttributes(attrs, com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator);
 
-        long duration = a.getInt(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_duration, 0);
+        long duration = a.getInt(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_duration, 0);
 
-        long startDelay = a.getInt(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_startOffset, 0);
+        long startDelay = a.getInt(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_startOffset, 0);
 
-        int valueType = a.getInt(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_valueType,
+        int valueType = a.getInt(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_valueType,
                 VALUE_TYPE_FLOAT);
 
         if (anim == null) {
@@ -196,8 +196,8 @@ public class AnimatorInflater {
         }
         //TypeEvaluator evaluator = null;
 
-        int valueFromIndex = com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_valueFrom;
-        int valueToIndex = com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_valueTo;
+        int valueFromIndex = com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_valueFrom;
+        int valueToIndex = com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_valueTo;
 
         boolean getFloats = (valueType == VALUE_TYPE_FLOAT);
 
@@ -287,13 +287,13 @@ public class AnimatorInflater {
         anim.setDuration(duration);
         anim.setStartDelay(startDelay);
 
-        if (a.hasValue(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_repeatCount)) {
+        if (a.hasValue(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_repeatCount)) {
             anim.setRepeatCount(
-                    a.getInt(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_repeatCount, 0));
+                    a.getInt(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_repeatCount, 0));
         }
-        if (a.hasValue(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_repeatMode)) {
+        if (a.hasValue(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_repeatMode)) {
             anim.setRepeatMode(
-                    a.getInt(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_repeatMode,
+                    a.getInt(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_repeatMode,
                             ValueAnimator.RESTART));
         }
         //if (evaluator != null) {
@@ -301,7 +301,7 @@ public class AnimatorInflater {
         //}
 
         final int resID =
-                a.getResourceId(com.jakewharton.nineoldandroids.internal.RR.styleable.Animator_interpolator, 0);
+                a.getResourceId(com.jakewharton.nineoldandroids.internal.FakeR.styleable.Animator_interpolator, 0);
         if (resID > 0) {
             anim.setInterpolator(AnimationUtils.loadInterpolator(context, resID));
         }
