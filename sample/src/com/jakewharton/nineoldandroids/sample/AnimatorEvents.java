@@ -17,10 +17,6 @@
 package com.jakewharton.nineoldandroids.sample;
 
 import java.util.ArrayList;
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -36,11 +32,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.jakewharton.nineoldandroids.Animator;
+import com.jakewharton.nineoldandroids.AnimatorSet;
+import com.jakewharton.nineoldandroids.ObjectAnimator;
+import com.jakewharton.nineoldandroids.ValueAnimator;
 
 /**
  * This demo shows how the AnimatorListener events work.
  */
 public class AnimatorEvents extends Activity {
+    private static final int OFF = 0x77FFFFFF;
+    private static final int ON  = 0xFFFFFFFF;
 
     TextView startText, repeatText, cancelText, endText;
     TextView startTextAnimator, repeatTextAnimator, cancelTextAnimator, endTextAnimator;
@@ -53,21 +55,21 @@ public class AnimatorEvents extends Activity {
         final MyAnimationView animView = new MyAnimationView(this);
         container.addView(animView);
         startText = (TextView) findViewById(R.id.startText);
-        startText.setAlpha(.5f);
+        startText.setTextColor(OFF);
         repeatText = (TextView) findViewById(R.id.repeatText);
-        repeatText.setAlpha(.5f);
+        repeatText.setTextColor(OFF);
         cancelText = (TextView) findViewById(R.id.cancelText);
-        cancelText.setAlpha(.5f);
+        cancelText.setTextColor(OFF);
         endText = (TextView) findViewById(R.id.endText);
-        endText.setAlpha(.5f);
+        endText.setTextColor(OFF);
         startTextAnimator = (TextView) findViewById(R.id.startTextAnimator);
-        startTextAnimator.setAlpha(.5f);
+        startTextAnimator.setTextColor(OFF);
         repeatTextAnimator = (TextView) findViewById(R.id.repeatTextAnimator);
-        repeatTextAnimator.setAlpha(.5f);
+        repeatTextAnimator.setTextColor(OFF);
         cancelTextAnimator = (TextView) findViewById(R.id.cancelTextAnimator);
-        cancelTextAnimator.setAlpha(.5f);
+        cancelTextAnimator.setTextColor(OFF);
         endTextAnimator = (TextView) findViewById(R.id.endTextAnimator);
-        endTextAnimator.setAlpha(.5f);
+        endTextAnimator.setTextColor(OFF);
         final CheckBox endCB = (CheckBox) findViewById(R.id.endCB);
 
 
@@ -140,14 +142,14 @@ public class AnimatorEvents extends Activity {
 
         public void startAnimation(boolean endImmediately) {
             this.endImmediately = endImmediately;
-            startText.setAlpha(.5f);
-            repeatText.setAlpha(.5f);
-            cancelText.setAlpha(.5f);
-            endText.setAlpha(.5f);
-            startTextAnimator.setAlpha(.5f);
-            repeatTextAnimator.setAlpha(.5f);
-            cancelTextAnimator.setAlpha(.5f);
-            endTextAnimator.setAlpha(.5f);
+            startText.setTextColor(OFF);
+            repeatText.setTextColor(OFF);
+            cancelText.setTextColor(OFF);
+            endText.setTextColor(OFF);
+            startTextAnimator.setTextColor(OFF);
+            repeatTextAnimator.setTextColor(OFF);
+            cancelTextAnimator.setTextColor(OFF);
+            endTextAnimator.setTextColor(OFF);
             createAnimation();
             animation.start();
         }
@@ -196,9 +198,9 @@ public class AnimatorEvents extends Activity {
 
         public void onAnimationStart(Animator animation) {
             if (animation instanceof AnimatorSet) {
-                startText.setAlpha(1f);
+                startText.setTextColor(ON);
             } else {
-                startTextAnimator.setAlpha(1f);
+                startTextAnimator.setTextColor(ON);
             }
             if (endImmediately) {
                 animation.end();
@@ -207,25 +209,25 @@ public class AnimatorEvents extends Activity {
 
         public void onAnimationEnd(Animator animation) {
             if (animation instanceof AnimatorSet) {
-                endText.setAlpha(1f);
+                endText.setTextColor(ON);
             } else {
-                endTextAnimator.setAlpha(1f);
+                endTextAnimator.setTextColor(ON);
             }
         }
 
         public void onAnimationCancel(Animator animation) {
             if (animation instanceof AnimatorSet) {
-                cancelText.setAlpha(1f);
+                cancelText.setTextColor(ON);
             } else {
-                cancelTextAnimator.setAlpha(1f);
+                cancelTextAnimator.setTextColor(ON);
             }
         }
 
         public void onAnimationRepeat(Animator animation) {
             if (animation instanceof AnimatorSet) {
-                repeatText.setAlpha(1f);
+                repeatText.setTextColor(ON);
             } else {
-                repeatTextAnimator.setAlpha(1f);
+                repeatTextAnimator.setTextColor(ON);
             }
         }
     }
