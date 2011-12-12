@@ -17,7 +17,7 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
