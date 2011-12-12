@@ -31,6 +31,15 @@
         </activity>
         
         <activity
+            android:name=".AnimationLoading"
+            android:label="Animation Loading">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".AnimationSeeking"
             android:label="Animation Seeking">
             <intent-filter>
