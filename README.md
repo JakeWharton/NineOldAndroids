@@ -4,9 +4,8 @@ Nine Old Androids
 Android library for using the [Honeycomb (Android 3.0) animation API][1] on all
 versions of the platform back to 1.0!
 
-Note: `LayoutTransition` and `AnimationInflater` are not present at this time.
-`AnimationInflater` will be added at a later date. It is not possible to
-implement `LayoutTransition` prior to Android 3.0.
+Note: `LayoutTransition` is present and it is not be possible to implement prior
+to Android 3.0.
 
 
 
