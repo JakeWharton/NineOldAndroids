@@ -5,6 +5,7 @@ Version 1.1.0 *(In Development)*
 --------------------------------
 
  * Add `AnimatorInflater` class.
+ * Add 'Droid Flakes' demo to samples.
 
 
 Version 1.0.0 *(2011-12-08)*
