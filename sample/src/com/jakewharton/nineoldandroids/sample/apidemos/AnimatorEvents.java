@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids.sample;
+package com.jakewharton.nineoldandroids.sample.apidemos;
 
 import java.util.ArrayList;
 import android.app.Activity;
@@ -36,6 +36,9 @@ import com.jakewharton.nineoldandroids.Animator;
 import com.jakewharton.nineoldandroids.AnimatorSet;
 import com.jakewharton.nineoldandroids.ObjectAnimator;
 import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.jakewharton.nineoldandroids.sample.R;
+import com.jakewharton.nineoldandroids.sample.R.id;
+import com.jakewharton.nineoldandroids.sample.R.layout;
 
 /**
  * This demo shows how the AnimatorListener events work.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids.sample;
+package com.jakewharton.nineoldandroids.sample.apidemos;
 
 import android.graphics.Paint;
 import android.graphics.RadialGradient;

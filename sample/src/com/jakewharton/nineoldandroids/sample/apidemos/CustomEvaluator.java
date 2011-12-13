@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids.sample;
+package com.jakewharton.nineoldandroids.sample.apidemos;
 
+// Need the following import to get access to the app resources, since this
+// class is in a sub-package.
 import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
@@ -27,18 +29,21 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import com.jakewharton.nineoldandroids.ObjectAnimator;
+import com.jakewharton.nineoldandroids.TypeEvaluator;
 import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.jakewharton.nineoldandroids.sample.R;
+import com.jakewharton.nineoldandroids.sample.R.id;
+import com.jakewharton.nineoldandroids.sample.R.layout;
 
-public class ReversingAnimation extends Activity {
+public class CustomEvaluator extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.animation_reversing);
+        setContentView(R.layout.animator_custom_evaluator);
         LinearLayout container = (LinearLayout) findViewById(R.id.container);
         final MyAnimationView animView = new MyAnimationView(this);
         container.addView(animView);
@@ -49,14 +54,59 @@ public class ReversingAnimation extends Activity {
                 animView.startAnimation();
             }
         });
+    }
 
-        Button reverser = (Button) findViewById(R.id.reverseButton);
-        reverser.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                animView.reverseAnimation();
-            }
-        });
+    public class XYHolder {
+        private float mX;
+        private float mY;
 
+        public XYHolder(float x, float y) {
+            mX = x;
+            mY = y;
+        }
+
+        public float getX() {
+            return mX;
+        }
+
+        public void setX(float x) {
+            mX = x;
+        }
+
+        public float getY() {
+            return mY;
+        }
+
+        public void setY(float y) {
+            mY = y;
+        }
+    }
+
+    public class XYEvaluator implements TypeEvaluator {
+        public Object evaluate(float fraction, Object startValue, Object endValue) {
+            XYHolder startXY = (XYHolder) startValue;
+            XYHolder endXY = (XYHolder) endValue;
+            return new XYHolder(startXY.getX() + fraction * (endXY.getX() - startXY.getX()),
+                    startXY.getY() + fraction * (endXY.getY() - startXY.getY()));
+        }
+    }
+
+    public class BallXYHolder {
+
+        private ShapeHolder mBall;
+
+        public BallXYHolder(ShapeHolder ball) {
+            mBall = ball;
+        }
+
+        public void setXY(XYHolder xyHolder) {
+            mBall.setX(xyHolder.getX());
+            mBall.setY(xyHolder.getY());
+        }
+
+        public XYHolder getXY() {
+            return new XYHolder(mBall.getX(), mBall.getY());
+        }
     }
 
     public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdateListener {
@@ -64,17 +114,21 @@ public class ReversingAnimation extends Activity {
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
         ValueAnimator bounceAnim = null;
         ShapeHolder ball = null;
+        BallXYHolder ballHolder = null;
 
         public MyAnimationView(Context context) {
             super(context);
             ball = createBall(25, 25);
+            ballHolder = new BallXYHolder(ball);
         }
 
         private void createAnimation() {
             if (bounceAnim == null) {
-                bounceAnim = ObjectAnimator.ofFloat(ball, "y", ball.getY(), getHeight() - 50f).
-                        setDuration(1500);
-                bounceAnim.setInterpolator(new AccelerateInterpolator(2f));
+                XYHolder startXY = new XYHolder(0f, 0f);
+                XYHolder endXY = new XYHolder(300f, 500f);
+                bounceAnim = ObjectAnimator.ofObject(ballHolder, "xY",
+                        new XYEvaluator(), endXY);
+                bounceAnim.setDuration(1500);
                 bounceAnim.addUpdateListener(this);
             }
         }
@@ -82,16 +136,6 @@ public class ReversingAnimation extends Activity {
         public void startAnimation() {
             createAnimation();
             bounceAnim.start();
-        }
-
-        public void reverseAnimation() {
-            createAnimation();
-            bounceAnim.reverse();
-        }
-
-        public void seek(long seekTime) {
-            createAnimation();
-            bounceAnim.setCurrentPlayTime(seekTime);
         }
 
         private ShapeHolder createBall(float x, float y) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids.sample;
+package com.jakewharton.nineoldandroids.sample.apidemos;
 
 import java.util.ArrayList;
 import android.app.Activity;
@@ -37,6 +37,9 @@ import com.jakewharton.nineoldandroids.Keyframe;
 import com.jakewharton.nineoldandroids.ObjectAnimator;
 import com.jakewharton.nineoldandroids.PropertyValuesHolder;
 import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.jakewharton.nineoldandroids.sample.R;
+import com.jakewharton.nineoldandroids.sample.R.id;
+import com.jakewharton.nineoldandroids.sample.R.layout;
 
 /**
  * This application demonstrates the seeking capability of ValueAnimator. The SeekBar in the

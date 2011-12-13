@@ -6,7 +6,7 @@
     android:versionName="1.0.0">
 
     <uses-sdk android:minSdkVersion="1" android:targetSdkVersion="14" />
-    
+
     <application
         android:icon="@drawable/ic_launcher"
         android:label="Nine Old Androids Sample">
@@ -20,73 +20,77 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+
+        <!-- API DEMOS -->
         <activity
-            android:name=".AnimationCloning"
-            android:label="Animation Cloning">
+            android:name=".apidemos.AnimationCloning"
+            android:label="API Demos/Animation Cloning">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".AnimationLoading"
-            android:label="Animation Loading">
+            android:name=".apidemos.AnimationLoading"
+            android:label="API Demos/Animation Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".AnimationSeeking"
-            android:label="Animation Seeking">
+            android:name=".apidemos.AnimationSeekingAnimationSeeking"
+            android:label="API Demos/Animation Seeking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".AnimatorEvents"
-            android:label="Animator Events">
+            android:name=".apidemos.AnimatorEvents"
+            android:label="API Demos/Animator Events">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".BouncingBalls"
-            android:label="Bouncing Balls">
+            android:name=".apidemos.BouncingBalls"
+            android:label="API Demos/Bouncing Balls">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".CustomEvaluator"
-            android:label="Custom Evaluator">
+            android:name=".apidemos.CustomEvaluator"
+            android:label="API Demos/Custom Evaluator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".MultiPropertyAnimation"
-            android:label="Multi-Property Animation">
+            android:name=".apidemos.MultiPropertyAnimation"
+            android:label="API Demos/Multi-Property Animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".ReversingAnimation"
-            android:label="Reversing Animation">
+            android:name=".apidemos.ReversingAnimation"
+            android:label="API Demos/Reversing Animation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
+            </intent-filter>
+        </activity>
+
+        <!-- DROID FLAKES -->
+        <activity
+            android:name=".droidflakes.Droidflakes"
+            android:label="Droid Flakes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>

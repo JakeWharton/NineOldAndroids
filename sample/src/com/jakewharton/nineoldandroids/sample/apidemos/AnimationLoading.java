@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids.sample;
+package com.jakewharton.nineoldandroids.sample.apidemos;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
@@ -39,6 +39,10 @@ import com.jakewharton.nineoldandroids.AnimatorInflater;
 import com.jakewharton.nineoldandroids.AnimatorSet;
 import com.jakewharton.nineoldandroids.ObjectAnimator;
 import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.jakewharton.nineoldandroids.sample.R;
+import com.jakewharton.nineoldandroids.sample.R.anim;
+import com.jakewharton.nineoldandroids.sample.R.id;
+import com.jakewharton.nineoldandroids.sample.R.layout;
 
 /**
  * This application demonstrates loading Animator objects from XML resources.
