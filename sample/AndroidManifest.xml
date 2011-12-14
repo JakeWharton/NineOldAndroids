@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".apidemos.AnimationSeekingAnimationSeeking"
+            android:name=".apidemos.AnimationSeeking"
             android:label="API Demos/Animation Seeking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
