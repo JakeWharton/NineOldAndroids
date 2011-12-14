@@ -32,7 +32,7 @@ a dependency:
     <dependency>
       <groupId>com.jakewharton</groupId>
       <artifactId>nine-old-androids</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
 
 You must also include the following repository:
