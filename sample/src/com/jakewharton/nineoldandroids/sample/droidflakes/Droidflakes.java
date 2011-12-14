@@ -18,6 +18,7 @@ package com.jakewharton.nineoldandroids.sample.droidflakes;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,15 +54,22 @@ public class Droidflakes extends Activity {
                 flakeView.subtractFlakes(flakeView.getNumFlakes() / 2);
             }
         });
-        CheckBox accelerated = (CheckBox) findViewById(R.id.accelerated);
-        accelerated.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if (Integer.parseInt(Build.VERSION.SDK) >= Build.VERSION_CODES.HONEYCOMB) {
+            HoneycombHelper.setup(this);
+        }
+    }
 
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                flakeView.setLayerType(isChecked ? View.LAYER_TYPE_NONE : View.LAYER_TYPE_SOFTWARE,
-                        null);
-            }
-        });
+    private static final class HoneycombHelper {
+        static void setup(final Droidflakes activity) {
+            CheckBox accelerated = (CheckBox) activity.findViewById(R.id.accelerated);
+            accelerated.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    activity.flakeView.setLayerType(
+                            isChecked ? View.LAYER_TYPE_NONE : View.LAYER_TYPE_SOFTWARE, null);
+                }
+            });
+        }
     }
 
     @Override

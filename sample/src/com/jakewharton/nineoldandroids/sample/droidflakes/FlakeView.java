@@ -33,11 +33,11 @@ import com.jakewharton.nineoldandroids.sample.R;
  * all of the logic for adding, subtracting, and rendering Droidflakes.
  */
 public class FlakeView extends View {
-	
+
     Bitmap droid;       // The bitmap that all flakes use
     int numFlakes = 0;  // Current number of flakes
     ArrayList<Flake> flakes = new ArrayList<Flake>(); // List of current flakes
-    
+
     // Animator used to drive all separate flake animations. Rather than have potentially
     // hundreds of separate animators, we just use one and then update all flakes for each
     // frame of that single animation.
@@ -60,7 +60,7 @@ public class FlakeView extends View {
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(24);
-        
+
         // This listener is where the action is for the flak animations. Every frame of the
         // animation, we calculate the elapsed time and update every flake's position and rotation
         // according to its speed.
@@ -74,7 +74,7 @@ public class FlakeView extends View {
                     Flake flake = flakes.get(i);
                     flake.y += (flake.speed * secs);
                     if (flake.y > getHeight()) {
-                    	// If a flake falls off the bottom, send it back to the top
+                        // If a flake falls off the bottom, send it back to the top
                         flake.y = 0 - flake.height;
                     }
                     flake.rotation = flake.rotation + (flake.rotationSpeed * secs);
@@ -137,7 +137,7 @@ public class FlakeView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-         
+
         // For each flake: back-translate by half its size (this allows it to rotate around its center),
         // rotate by its current rotation, translate by its location, then draw its bitmap
         for (int i = 0; i < numFlakes; ++i) {
@@ -164,7 +164,7 @@ public class FlakeView extends View {
     }
 
     public void pause() {
-    	// Make sure the animator's not spinning in the background when the activity is paused.
+        // Make sure the animator's not spinning in the background when the activity is paused.
         animator.cancel();
     }
 
