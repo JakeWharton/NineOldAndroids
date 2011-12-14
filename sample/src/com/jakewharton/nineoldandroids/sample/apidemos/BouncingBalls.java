@@ -38,8 +38,6 @@ import com.jakewharton.nineoldandroids.ArgbEvaluator;
 import com.jakewharton.nineoldandroids.ObjectAnimator;
 import com.jakewharton.nineoldandroids.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
-import com.jakewharton.nineoldandroids.sample.R.id;
-import com.jakewharton.nineoldandroids.sample.R.layout;
 
 
 public class BouncingBalls extends Activity {

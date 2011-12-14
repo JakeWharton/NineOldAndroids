@@ -33,8 +33,6 @@ import android.widget.LinearLayout;
 import com.jakewharton.nineoldandroids.ObjectAnimator;
 import com.jakewharton.nineoldandroids.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
-import com.jakewharton.nineoldandroids.sample.R.id;
-import com.jakewharton.nineoldandroids.sample.R.layout;
 
 public class ReversingAnimation extends Activity {
 
