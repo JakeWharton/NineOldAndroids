@@ -3,15 +3,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.jakewharton</groupId>
-	<artifactId>nine-old-androids-sample</artifactId>
+	<groupId>com.nineoldandroids</groupId>
+	<artifactId>sample</artifactId>
 	<name>Nine Old Androids Sample</name>
 	<packaging>apk</packaging>
 
 	<parent>
-		<groupId>com.jakewharton</groupId>
-		<artifactId>nine-old-androids-parent</artifactId>
-		<version>1.1.1-SNAPSHOT</version>
+		<groupId>com.nineoldandroids</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -23,8 +23,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.jakewharton</groupId>
-			<artifactId>nine-old-androids</artifactId>
+			<groupId>com.nineoldandroids</groupId>
+			<artifactId>library</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

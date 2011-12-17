@@ -31,9 +31,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
-import com.jakewharton.nineoldandroids.TypeEvaluator;
-import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.nineoldandroids.ObjectAnimator;
+import com.nineoldandroids.TypeEvaluator;
+import com.nineoldandroids.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
 
 public class CustomEvaluator extends Activity {

@@ -2,7 +2,7 @@
 
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.jakewharton.nineoldandroids"
+	package="com.nineoldandroids"
 	android:versionCode="20"
 	android:versionName="1.1.0">
 	

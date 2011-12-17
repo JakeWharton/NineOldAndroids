@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids;
+package com.nineoldandroids;
 
 //import android.util.FloatProperty;
 //import android.util.IntProperty;

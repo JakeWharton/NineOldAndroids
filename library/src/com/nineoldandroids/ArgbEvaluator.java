@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids;
+package com.nineoldandroids;
 
 /**
  * This evaluator can be used to perform type interpolation between integer

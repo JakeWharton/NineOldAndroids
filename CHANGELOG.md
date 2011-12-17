@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 2.0.0 *(In Development)*
+--------------------------------
+
+All classes are now under the `com.nineoldandroids` package.
+
+
 Version 1.1.0 *(2011-12-13)*
 ----------------------------
 

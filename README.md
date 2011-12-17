@@ -13,7 +13,7 @@ Usage
 =====
 
 The API is exactly the same as the [Honeycomb API][2], just change your imports
-to use `com.jakewharton.nineoldandroids.XXX`.
+to use `com.nineoldandroids.XXX`.
 
 Take a look at a few demos taken from the [platform ApiDemos][3] in the
 `sample/` folder. You can also try it out on the [Android Market][4].
@@ -30,9 +30,9 @@ If you are a Maven user you can easily include the library by specifying it as
 a dependency:
 
     <dependency>
-      <groupId>com.jakewharton</groupId>
-      <artifactId>nine-old-androids</artifactId>
-      <version>1.1.0</version>
+      <groupId>com.nineoldandroids</groupId>
+      <artifactId>library</artifactId>
+      <version>2.0.0</version>
     </dependency>
 
 You must also include the following repository:

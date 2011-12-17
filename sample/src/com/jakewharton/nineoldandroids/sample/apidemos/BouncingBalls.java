@@ -31,12 +31,12 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
-import com.jakewharton.nineoldandroids.Animator;
-import com.jakewharton.nineoldandroids.AnimatorListenerAdapter;
-import com.jakewharton.nineoldandroids.AnimatorSet;
-import com.jakewharton.nineoldandroids.ArgbEvaluator;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
-import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.nineoldandroids.Animator;
+import com.nineoldandroids.AnimatorListenerAdapter;
+import com.nineoldandroids.AnimatorSet;
+import com.nineoldandroids.ArgbEvaluator;
+import com.nineoldandroids.ObjectAnimator;
+import com.nineoldandroids.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
 
 

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids;
+package com.nineoldandroids;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.view.animation.Interpolator;
 
-import com.jakewharton.nineoldandroids.Keyframe.FloatKeyframe;
-import com.jakewharton.nineoldandroids.Keyframe.IntKeyframe;
-import com.jakewharton.nineoldandroids.Keyframe.ObjectKeyframe;
+import com.nineoldandroids.Keyframe.FloatKeyframe;
+import com.nineoldandroids.Keyframe.IntKeyframe;
+import com.nineoldandroids.Keyframe.ObjectKeyframe;
 
 /**
  * This class holds a collection of Keyframe objects and is called by ValueAnimator to calculate

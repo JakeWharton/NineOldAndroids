@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.jakewharton.nineoldandroids;
+package com.nineoldandroids;
 
 import android.view.animation.Interpolator;
 
-import com.jakewharton.nineoldandroids.Keyframe.IntKeyframe;
+import com.nineoldandroids.Keyframe.IntKeyframe;
 
 import java.util.ArrayList;
 

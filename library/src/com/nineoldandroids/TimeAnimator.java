@@ -1,4 +1,4 @@
-package com.jakewharton.nineoldandroids;
+package com.nineoldandroids;
 
 /**
  * This class provides a simple callback mechanism to listeners that is synchronized with other

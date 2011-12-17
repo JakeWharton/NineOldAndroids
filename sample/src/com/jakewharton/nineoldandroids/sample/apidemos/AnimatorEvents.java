@@ -32,10 +32,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.jakewharton.nineoldandroids.Animator;
-import com.jakewharton.nineoldandroids.AnimatorSet;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
-import com.jakewharton.nineoldandroids.ValueAnimator;
+import com.nineoldandroids.Animator;
+import com.nineoldandroids.AnimatorSet;
+import com.nineoldandroids.ObjectAnimator;
+import com.nineoldandroids.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
 
 /**
