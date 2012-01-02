@@ -73,14 +73,14 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<java.version>1.6</java.version>
-		<android.version>4.0_r1</android.version>
+		<android.version>4.0.1.2</android.version>
 		<android.platform>14</android.platform>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>android</groupId>
+				<groupId>com.google.android</groupId>
 				<artifactId>android</artifactId>
 				<version>${android.version}</version>
 			</dependency>
