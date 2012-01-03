@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<meta name="description" content="Android library for using the Honeycomb (Android 3.0) animation API on all versions of the platform back to 1.0!">
+
+		<title>NineOldAndroids</title>
+
+		<!-- IE Fix for HTML5 Tags -->
+		<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="js/google-code-prettify/prettify.css">
+		<style type="text/css">
+			html, body {
+				background: #eee url('old_mathematics.png') repeat;
+			}
+			section {
+				padding-top: 70px;
+				padding-bottom: 30px;
+			}
+			.navbar-inner, .nav .dropdown-menu {
+				background: #222 url('gray_sand.png') repeat;
+				top: 41px;
+			}
+			.screens {
+				text-align: center;
+				margin-top: 2em;
+			}
+			h2 {
+				margin-bottom: 0.5em;
+			}
+			.nav .dropdown-menu li a:hover {
+				background: transparent;
+			}
+			ol li {
+				margin-bottom: 20px;
+			}
+			pre {
+				margin: 10px 0;
+			}
+			#logo {
+				margin-bottom: -40px;
+			}
+			td.indicator {
+				width: 320px;
+			}
+			.image-table {
+				margin-top: 18px;
+			}
+			.image-table td {
+				padding: 15px;
+			}
+			div.well.dl {
+				background-color: rgba(200, 200, 200, 0.2);
+				margin: 1em;
+			}
+			p.h1 {
+				font-size: 14px;
+				font-weight: normal;
+				margin-bottom: 15px;
+			}
+			p.h2 {
+				margin-top: 25px;
+				margin-bottom: 10px;
+			}
+			section li {
+				margin: 5px 0;
+			}
+			#forkme {
+				position: fixed;
+				top: 40px;
+				right: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="navbar navbar-fixed">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">NineOldAndroids</a>
+					<ul class="nav secondary-nav">
+						<li><a href="#introduction">Introduction</a></li>
+						<li><a href="#download">Download</a></li>
+						<li><a href="#usage">Usage</a></li>
+						<li><a href="#credits">Credits</a></li>
+						<li class="divider"></li>
+						<li class="dropdown">
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><strong>More Libraries</strong></a>
+							<ul class="dropdown-menu">
+								<li><a href="http://actionbarsherlock.com/">ActionBarSherlock</a></li>
+								<li><a href="http://viewpagerindicator.com/">ViewPagerIndicator</a></li>
+								<li><a href="http://hansel-and-gretel.com/">HanselAndGretel</a></li>
+								<li><a href="https://github.com/JakeWharton/Android-DirectionalViewPager/">DirectionalViewPager</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<section id="introduction">
+				<div class="row">
+					<div class="span12">
+						<h2>Introduction</h2>
+						<p>Android library for using the <a href="http://android-developers.blogspot.com/2011/02/animation-in-honeycomb.html">Honeycomb (Android 3.0) animation API</a> on all versions of the platform back to 1.0!</p>
+						<p>Animation prior to Honeycomb was very limited in what it could accomplish so in Android 3.x a new API was written. While not all of it can be used on prior API levels, a large majority of it is still very useful. With only very minor changes we are able to use a large subset of the new-style animation with exactly the same API.</p>
+						<p>Skip to the <a href="#usage">Usage</a> section for implementation details.</p>
+						<p class="screens"><img src="screens.png" alt=""/></p>
+					</div>
+				</div>
+			</section>
+
+			<section id="download">
+				<div class="row">
+					<div class="span12"><h2>Download</h2></div>
+					<div class="span8">
+						<p class="h1"><strong>Version 1.1.0</strong> &mdash; 2011-12-13</p>
+						<p><a href="https://github.com/JakeWharton/NineOldAndroids/zipball/master" class="btn small success">Download ZIP</a> <a href="https://github.com/JakeWharton/NineOldAndroids/tarball/master" class="btn small success">Download TGZ</a></p>
+						<p class="h2">Change Log</p>
+						<ul>
+							<li>Add <code>AnimatorInflater</code> class.</li>
+							<li>Add 'Droid Flakes' demo to samples.</li>
+						</ul>
+						<p>Looking for an older version? Check <a href="https://github.com/JakeWharton/NineOldAndroids/tags">here</a>.</p>
+					</div>
+					<div class="span4">
+						<p>Try out the sample application: <a href="https://market.android.com/details?id=com.jakewharton.nineoldandroids.sample"><img src="marketqr.png" alt="Download from the Android Market"></a></p>
+					</div>
+				</div>
+			</section>
+
+			<section id="usage">
+				<div class="row">
+					<div class="span12">
+						<h2>Usage</h2>
+						<p>The API is exactly the same as the <a href="http://developer.android.com/reference/android/view/animation/package-summary.html">Honeycomb API</a>, just change your imports to use <code>com.jakewharton.nineoldandroids.*</code>.</p>
+						<p>For example, to animate a <code>View</code> vertically off of the screen you can use <code>ObjectAnimator</code></p>
+						<pre class="prettyprint">ObjectAnimator.ofFloat(myObject, "y", -(myObject.getY() + myObject.getHeight())).start();</pre>
+						<p>If you're familiar with the animation API already you should notice that this is precisely what would be done with the native api. The only difference, however, is that we've imported <code>com.jakewharton.nineoldandroids.ObjectAnimator</code> at the top of the file instead of <code>android.animation.ObjectAnimator</code>.</p>
+						<p>Here's another example of a <code>View</code> animating its own background to go from red to blue and then back again forever. You can see this animation in the 'Bouncing Balls' demo in the samples application.</p>
+						<pre class="prettyprint">ValueAnimator colorAnim = ObjectAnimator.ofInt(this, "backgroundColor", /*Red*/0xFFFF8080, /*Blue*/0xFF8080FF);
+colorAnim.setDuration(3000);
+colorAnim.setEvaluator(new ArgbEvaluator());
+colorAnim.setRepeatCount(ValueAnimator.INFINITE);
+colorAnim.setRepeatMode(ValueAnimator.REVERSE);
+colorAnim.start();</pre>
+						<p>There are some caveats to using this API on versions of Andriod prior to Honeycomb:</p>
+						<ul>
+							<li>You may only animate properties of a class where the method to do so exists. That is, any value you wish to change must have an appropriate getter and setter of the same name. Reflection is used to get and set values during animation which means that there is no compile-time checks. Ensure that what you are animating has methods present on all API levels that your application will be running on.</li>
+							<li>Native <code>Property</code> animation was introduced natively in Android 3.2 and is thus <strong>not</strong> included in this library.</li>
+							<li><code>LayoutTransition</code> is not possible to implement prior to Android 3.0 and is not included.</li>
+							<li><code>ViewPropertyAnimator</code> is not included at this time. It is theoretically possible to support this class and it will be added at a future time.</li>
+						</ul>
+						<p><strong>For more examples please take a look at the <a href="https://github.com/JakeWharton/NineOldAndroids/tree/master/sample">source code to the samples</a>.</strong></p>
+					</div>
+				</div>
+			</section>
+
+			<section id="credits">
+				<div class="row">
+					<div class="span12">
+						<h2>Credits</h2>
+						<p>&copy; 2012 Jake Wharton &mdash; <a href="http://twitter.com/JakeWharton">@JakeWharton</a> &middot; <a href="http://profiles.google.com/jakewharton">+JakeWharton</a></p>
+						<p>Developed and distributed under the Apache License, Version 2.0.</p>
+						<p><a href="http://github.com/JakeWharton/NineOldAndroids/" id="forkme"><img src="forkme.png" alt="Fork this project on GitHub"/></a></p>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+		<script src="js/bootstrap-dropdown.js"></script>
+		<script src="js/google-code-prettify/prettify.js"></script>
+		<script>
+			$(function () {
+				prettyPrint();
+			});
+		</script>
+	</body>
+</html>
