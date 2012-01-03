@@ -139,7 +139,7 @@
 						<h2>Usage</h2>
 						<p>The API is exactly the same as the <a href="http://developer.android.com/reference/android/view/animation/package-summary.html">Honeycomb API</a>, just change your imports to use <code>com.jakewharton.nineoldandroids.*</code>.</p>
 						<p>For example, to animate a <code>View</code> vertically off of the screen you can use <code>ObjectAnimator</code></p>
-						<pre class="prettyprint">ObjectAnimator.ofFloat(myObject, "y", -(myObject.getY() + myObject.getHeight())).start();</pre>
+						<pre class="prettyprint">ObjectAnimator.ofFloat(myObject, "y", myObject.getY(), -myObject.getHeight()).start();</pre>
 						<p>If you're familiar with the animation API already you should notice that this is precisely what would be done with the native api. The only difference, however, is that we've imported <code>com.jakewharton.nineoldandroids.ObjectAnimator</code> at the top of the file instead of <code>android.animation.ObjectAnimator</code>.</p>
 						<p>Here's another example of a <code>View</code> animating its own background to go from red to blue and then back again forever. You can see this animation in the 'Bouncing Balls' demo in the samples application.</p>
 						<pre class="prettyprint">ValueAnimator colorAnim = ObjectAnimator.ofInt(this, "backgroundColor", /*Red*/0xFFFF8080, /*Blue*/0xFF8080FF);
