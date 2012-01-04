@@ -97,5 +97,15 @@
             </intent-filter>
         </activity>
 
+        <!-- PATH ANIMATION -->
+        <activity
+            android:name=".pathanimation.PathAnimationActivity"
+            android:label="Path Animation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
