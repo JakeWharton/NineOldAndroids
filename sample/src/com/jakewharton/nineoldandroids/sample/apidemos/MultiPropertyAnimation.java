@@ -31,12 +31,12 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import com.nineoldandroids.Animator;
-import com.nineoldandroids.AnimatorSet;
-import com.nineoldandroids.Keyframe;
-import com.nineoldandroids.ObjectAnimator;
-import com.nineoldandroids.PropertyValuesHolder;
-import com.nineoldandroids.ValueAnimator;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.Keyframe;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.PropertyValuesHolder;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
 
 /**

@@ -31,9 +31,9 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import com.nineoldandroids.AnimatorSet;
-import com.nineoldandroids.ObjectAnimator;
-import com.nineoldandroids.ValueAnimator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
 
 

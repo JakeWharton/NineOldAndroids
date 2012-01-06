@@ -15,7 +15,7 @@
  */
 package com.jakewharton.nineoldandroids.sample.pathanimation;
 
-import com.nineoldandroids.TypeEvaluator;
+import com.nineoldandroids.animation.TypeEvaluator;
 
 /**
  * This evaluator interpolates between two PathPoint values given the value t, the

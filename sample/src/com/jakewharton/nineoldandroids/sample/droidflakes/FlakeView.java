@@ -24,8 +24,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.View;
-import com.nineoldandroids.ValueAnimator;
-import com.nineoldandroids.ValueAnimator.AnimatorUpdateListener;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener;
 import com.jakewharton.nineoldandroids.sample.R;
 
 /**

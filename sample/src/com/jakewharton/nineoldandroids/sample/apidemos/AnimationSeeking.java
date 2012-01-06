@@ -31,10 +31,10 @@ import android.view.animation.CycleInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import com.nineoldandroids.Animator;
-import com.nineoldandroids.AnimatorSet;
-import com.nineoldandroids.ObjectAnimator;
-import com.nineoldandroids.ValueAnimator;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.jakewharton.nineoldandroids.sample.R;
 
 /**

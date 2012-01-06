@@ -15,13 +15,14 @@
  */
 package com.jakewharton.nineoldandroids.sample.pathanimation;
 
-import com.jakewharton.nineoldandroids.sample.R;
-import com.nineoldandroids.ObjectAnimator;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.jakewharton.nineoldandroids.sample.R;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.animation.AnimatorProxy;
 
 public class PathAnimationActivity extends Activity {
     Button mButton;
