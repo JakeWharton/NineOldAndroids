@@ -17,10 +17,11 @@
 package com.nineoldandroids.animation;
 
 import android.util.Log;
-//import android.util.Property;
 
 //import java.lang.reflect.Method;
 import java.util.ArrayList;
+
+import com.nineoldandroids.util.Property;
 
 /**
  * This subclass of {@link ValueAnimator} provides support for animating properties on target objects.
@@ -40,7 +41,7 @@ public final class ObjectAnimator extends ValueAnimator {
 
     private String mPropertyName;
 
-    //private Property mProperty;
+    private Property mProperty;
 
     /**
      * Sets the name of the property that will be animated. This name is used to derive
@@ -90,23 +91,23 @@ public final class ObjectAnimator extends ValueAnimator {
      *
      * @param property The property being animated. Should not be null.
      */
-    //public void setProperty(Property property) {
-    //    // mValues could be null if this is being constructed piecemeal. Just record the
-    //    // propertyName to be used later when setValues() is called if so.
-    //    if (mValues != null) {
-    //        PropertyValuesHolder valuesHolder = mValues[0];
-    //        String oldName = valuesHolder.getPropertyName();
-    //        valuesHolder.setProperty(property);
-    //        mValuesMap.remove(oldName);
-    //        mValuesMap.put(mPropertyName, valuesHolder);
-    //    }
-    //    if (mProperty != null) {
-    //        mPropertyName = property.getName();
-    //    }
-    //    mProperty = property;
-    //    // New property/values/target should cause re-initialization prior to starting
-    //    mInitialized = false;
-    //}
+    public void setProperty(Property property) {
+        // mValues could be null if this is being constructed piecemeal. Just record the
+        // propertyName to be used later when setValues() is called if so.
+        if (mValues != null) {
+            PropertyValuesHolder valuesHolder = mValues[0];
+            String oldName = valuesHolder.getPropertyName();
+            valuesHolder.setProperty(property);
+            mValuesMap.remove(oldName);
+            mValuesMap.put(mPropertyName, valuesHolder);
+        }
+        if (mProperty != null) {
+            mPropertyName = property.getName();
+        }
+        mProperty = property;
+        // New property/values/target should cause re-initialization prior to starting
+        mInitialized = false;
+    }
 
     /**
      * Gets the name of the property that will be animated. This name will be used to derive
@@ -148,10 +149,10 @@ public final class ObjectAnimator extends ValueAnimator {
      * @param target The object whose property is to be animated.
      * @param property The property being animated.
      */
-    //private <T> ObjectAnimator(T target, Property<T, ?> property) {
-    //    mTarget = target;
-    //    setProperty(property);
-    //}
+    private <T> ObjectAnimator(T target, Property<T, ?> property) {
+        mTarget = target;
+        setProperty(property);
+    }
 
     /**
      * Constructs and returns an ObjectAnimator that animates between int values. A single
@@ -185,11 +186,11 @@ public final class ObjectAnimator extends ValueAnimator {
      * @param values A set of values that the animation will animate between over time.
      * @return An ObjectAnimator object that is set up to animate between the given values.
      */
-    //public static <T> ObjectAnimator ofInt(T target, Property<T, Integer> property, int... values) {
-    //    ObjectAnimator anim = new ObjectAnimator(target, property);
-    //    anim.setIntValues(values);
-    //    return anim;
-    //}
+    public static <T> ObjectAnimator ofInt(T target, Property<T, Integer> property, int... values) {
+        ObjectAnimator anim = new ObjectAnimator(target, property);
+        anim.setIntValues(values);
+        return anim;
+    }
 
     /**
      * Constructs and returns an ObjectAnimator that animates between float values. A single
@@ -223,12 +224,12 @@ public final class ObjectAnimator extends ValueAnimator {
      * @param values A set of values that the animation will animate between over time.
      * @return An ObjectAnimator object that is set up to animate between the given values.
      */
-    //public static <T> ObjectAnimator ofFloat(T target, Property<T, Float> property,
-    //        float... values) {
-    //    ObjectAnimator anim = new ObjectAnimator(target, property);
-    //    anim.setFloatValues(values);
-    //    return anim;
-    //}
+    public static <T> ObjectAnimator ofFloat(T target, Property<T, Float> property,
+            float... values) {
+        ObjectAnimator anim = new ObjectAnimator(target, property);
+        anim.setFloatValues(values);
+        return anim;
+    }
 
     /**
      * Constructs and returns an ObjectAnimator that animates between Object values. A single
@@ -270,13 +271,13 @@ public final class ObjectAnimator extends ValueAnimator {
      * @param values A set of values that the animation will animate between over time.
      * @return An ObjectAnimator object that is set up to animate between the given values.
      */
-    //public static <T, V> ObjectAnimator ofObject(T target, Property<T, V> property,
-    //        TypeEvaluator<V> evaluator, V... values) {
-    //    ObjectAnimator anim = new ObjectAnimator(target, property);
-    //    anim.setObjectValues(values);
-    //    anim.setEvaluator(evaluator);
-    //    return anim;
-    //}
+    public static <T, V> ObjectAnimator ofObject(T target, Property<T, V> property,
+            TypeEvaluator<V> evaluator, V... values) {
+        ObjectAnimator anim = new ObjectAnimator(target, property);
+        anim.setObjectValues(values);
+        anim.setEvaluator(evaluator);
+        return anim;
+    }
 
     /**
      * Constructs and returns an ObjectAnimator that animates between the sets of values specified
@@ -308,11 +309,11 @@ public final class ObjectAnimator extends ValueAnimator {
         if (mValues == null || mValues.length == 0) {
             // No values yet - this animator is being constructed piecemeal. Init the values with
             // whatever the current propertyName is
-            //if (mProperty != null) {
-            //    setValues(PropertyValuesHolder.ofInt(mProperty, values));
-            //} else {
+            if (mProperty != null) {
+                setValues(PropertyValuesHolder.ofInt(mProperty, values));
+            } else {
                 setValues(PropertyValuesHolder.ofInt(mPropertyName, values));
-            //}
+            }
         } else {
             super.setIntValues(values);
         }
@@ -323,11 +324,11 @@ public final class ObjectAnimator extends ValueAnimator {
         if (mValues == null || mValues.length == 0) {
             // No values yet - this animator is being constructed piecemeal. Init the values with
             // whatever the current propertyName is
-            //if (mProperty != null) {
-            //    setValues(PropertyValuesHolder.ofFloat(mProperty, values));
-            //} else {
+            if (mProperty != null) {
+                setValues(PropertyValuesHolder.ofFloat(mProperty, values));
+            } else {
                 setValues(PropertyValuesHolder.ofFloat(mPropertyName, values));
-            //}
+            }
         } else {
             super.setFloatValues(values);
         }
@@ -338,11 +339,11 @@ public final class ObjectAnimator extends ValueAnimator {
         if (mValues == null || mValues.length == 0) {
             // No values yet - this animator is being constructed piecemeal. Init the values with
             // whatever the current propertyName is
-            //if (mProperty != null) {
-            //    setValues(PropertyValuesHolder.ofObject(mProperty, (TypeEvaluator)null, values));
-            //} else {
+            if (mProperty != null) {
+                setValues(PropertyValuesHolder.ofObject(mProperty, (TypeEvaluator)null, values));
+            } else {
                 setValues(PropertyValuesHolder.ofObject(mPropertyName, (TypeEvaluator)null, values));
-            //}
+            }
         } else {
             super.setObjectValues(values);
         }
