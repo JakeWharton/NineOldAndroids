@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nineoldandroids;
+package com.nineoldandroids.animation;
 
 //import android.util.FloatProperty;
 //import android.util.IntProperty;

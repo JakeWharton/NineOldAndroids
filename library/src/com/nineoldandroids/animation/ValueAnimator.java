@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nineoldandroids;
+package com.nineoldandroids.animation;
 
 import android.os.Handler;
 import android.os.Looper;

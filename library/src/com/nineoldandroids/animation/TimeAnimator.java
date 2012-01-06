@@ -1,4 +1,4 @@
-package com.nineoldandroids;
+package com.nineoldandroids.animation;
 
 /**
  * This class provides a simple callback mechanism to listeners that is synchronized with other

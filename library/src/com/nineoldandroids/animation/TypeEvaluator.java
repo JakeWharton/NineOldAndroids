@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nineoldandroids;
+package com.nineoldandroids.animation;
 
 /**
  * Interface for use with the {@link ValueAnimator#setEvaluator(TypeEvaluator)} function. Evaluators

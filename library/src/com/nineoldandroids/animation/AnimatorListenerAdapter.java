@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nineoldandroids;
+package com.nineoldandroids.animation;
 
 /**
  * This adapter class provides empty implementations of the methods from {@link android.animation.Animator.AnimatorListener}.

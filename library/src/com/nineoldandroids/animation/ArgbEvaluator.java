@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nineoldandroids;
+package com.nineoldandroids.animation;
 
 /**
  * This evaluator can be used to perform type interpolation between integer
