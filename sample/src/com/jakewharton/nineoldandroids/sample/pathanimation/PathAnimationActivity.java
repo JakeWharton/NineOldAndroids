@@ -26,6 +26,7 @@ import com.nineoldandroids.view.animation.AnimatorProxy;
 
 public class PathAnimationActivity extends Activity {
     Button mButton;
+    AnimatorProxy mButtonProxy;
     PathEvaluator mEvaluator = new PathEvaluator();
     
     @Override
@@ -34,6 +35,7 @@ public class PathAnimationActivity extends Activity {
         setContentView(R.layout.pathanimator);
 
         mButton = (Button) findViewById(R.id.button);
+        mButtonProxy = AnimatorProxy.wrap(mButton);
 
         // Set up the path we're animating along
         AnimatorPath path = new AnimatorPath();
@@ -54,8 +56,8 @@ public class PathAnimationActivity extends Activity {
         });
 
     }
-    
-    /**
+
+	/**
      * We need this setter to translate between the information the animator
      * produces (a new "PathPoint" describing the current animated location)
      * and the information that the button requires (an xy location). The
@@ -63,8 +65,8 @@ public class PathAnimationActivity extends Activity {
      * property string.
      */
     public void setButtonLoc(PathPoint newLoc) {
-        mButton.setTranslationX(newLoc.mX);
-        mButton.setTranslationY(newLoc.mY);
+        mButtonProxy.setTranslationX(newLoc.mX);
+        mButtonProxy.setTranslationY(newLoc.mY);
     }
     
 }
