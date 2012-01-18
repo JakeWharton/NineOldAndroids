@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.util.Log;
+import android.view.View;
 
 import com.nineoldandroids.util.Property;
 import com.nineoldandroids.view.animation.AnimatorProxy;
@@ -90,12 +91,6 @@ public final class ObjectAnimator extends ValueAnimator {
      * @param propertyName The name of the property being animated. Should not be null.
      */
     public void setPropertyName(String propertyName) {
-        // XXX Magic! Automatically proxy unavilable properties
-        if (AnimatorProxy.NEEDS_PROXY && PROXY_PROPERTIES.containsKey(propertyName)) {
-            setProperty(PROXY_PROPERTIES.get(propertyName));
-            return;
-        }
-
         // mValues could be null if this is being constructed piecemeal. Just record the
         // propertyName to be used later when setValues() is called if so.
         if (mValues != null) {
@@ -407,6 +402,9 @@ public final class ObjectAnimator extends ValueAnimator {
         if (!mInitialized) {
             // mValueType may change due to setter/getter setup; do this before calling super.init(),
             // which uses mValueType to set up the default type evaluator.
+            if ((mProperty == null) && AnimatorProxy.NEEDS_PROXY && (mTarget instanceof View) && PROXY_PROPERTIES.containsKey(mPropertyName)) {
+                setProperty(PROXY_PROPERTIES.get(mPropertyName));
+            }
             int numValues = mValues.length;
             for (int i = 0; i < numValues; ++i) {
                 mValues[i].setupSetterAndGetter(mTarget);
