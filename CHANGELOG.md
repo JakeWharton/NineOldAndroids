@@ -1,8 +1,8 @@
 Change Log
 ==========
 
-Version 2.0.0 *(In Development)*
---------------------------------
+Version 2.0.0 *(2012-01-18)*
+----------------------------
 
 Animation classes are now under the `com.nineoldandroids.animation` package.
 
