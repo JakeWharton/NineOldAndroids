@@ -68,7 +68,7 @@ public final class AnimatorProxy extends Animation {
         mHasPivot = true;
         if (mPivotX != pivotX) {
             mPivotX = pivotX;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getPivotY() {
@@ -78,7 +78,7 @@ public final class AnimatorProxy extends Animation {
         mHasPivot = true;
         if (mPivotY != pivotY) {
             mPivotY = pivotY;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getRotation() {
@@ -87,7 +87,7 @@ public final class AnimatorProxy extends Animation {
     public void setRotation(float rotation) {
         if (mRotationZ != rotation) {
             mRotationZ = rotation;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getRotationX() {
@@ -96,7 +96,7 @@ public final class AnimatorProxy extends Animation {
     public void setRotationX(float rotationX) {
         if (mRotationX != rotationX) {
             mRotationX = rotationX;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getRotationY() {
@@ -105,7 +105,7 @@ public final class AnimatorProxy extends Animation {
     public void setRotationY(float rotationY) {
         if (mRotationY != rotationY) {
             mRotationY = rotationY;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getScaleX() {
@@ -114,7 +114,7 @@ public final class AnimatorProxy extends Animation {
     public void setScaleX(float scaleX) {
         if (mScaleX != scaleX) {
             mScaleX = scaleX;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getScaleY() {
@@ -123,7 +123,7 @@ public final class AnimatorProxy extends Animation {
     public void setScaleY(float scaleY) {
         if (mScaleY != scaleY) {
             mScaleY = scaleY;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public int getScrollX() {
@@ -144,7 +144,7 @@ public final class AnimatorProxy extends Animation {
     public void setTranslationX(float translationX) {
         if (mTranslationX != translationX) {
             mTranslationX = translationX;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getTranslationY() {
@@ -153,7 +153,7 @@ public final class AnimatorProxy extends Animation {
     public void setTranslationY(float translationY) {
         if (mTranslationY != translationY) {
             mTranslationY = translationY;
-            mView.invalidate();
+            mViewParent.invalidate();
         }
     }
     public float getX() {
@@ -197,8 +197,5 @@ public final class AnimatorProxy extends Animation {
 
         m.postScale(mScaleX, mScaleY);
         m.postTranslate(mTranslationX, mTranslationY);
-
-        //Invalidate the entire parent for now
-        mViewParent.invalidate();
     }
 }
