@@ -9,7 +9,8 @@ Animation classes are now under the `com.nineoldandroids.animation` package.
  * `ObjectAnimator` will now automatically use a compatibility implementation
    when animating any post-3.0 view property. The following properties are
    supported: `alpha`, `translationX`, `translationY`, `scaleX`, `scaleY`,
-   `x`, `y`, `rotation`, `pivotX`, `pivotY`, `scrollX`, and `scrollY`.
+   `x`, `y`, `rotation`, `rotationX`, `rotationY`, `pivotX`, `pivotY`,
+   `scrollX`, and `scrollY`.
  * Add `AnimationProxy` which allows for wrapping any `View` to enable
    alpha, translation, scale, and rotation animation.
  * Add 'Path Animation' demo to samples.
