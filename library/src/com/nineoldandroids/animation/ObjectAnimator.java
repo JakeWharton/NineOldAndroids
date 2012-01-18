@@ -16,12 +16,14 @@
 
 package com.nineoldandroids.animation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.util.Log;
 
-//import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 import com.nineoldandroids.util.Property;
+import com.nineoldandroids.view.animation.AnimatorProxy;
 
 /**
  * This subclass of {@link ValueAnimator} provides support for animating properties on target objects.
@@ -35,6 +37,24 @@ import com.nineoldandroids.util.Property;
  */
 public final class ObjectAnimator extends ValueAnimator {
     private static final boolean DBG = false;
+    private static final Map<String, Property> PROXY_PROPERTIES = new HashMap<String, Property>();
+
+    static {
+        PROXY_PROPERTIES.put("alpha", HoneycombCompat.ALPHA);
+        PROXY_PROPERTIES.put("pivotX", HoneycombCompat.PIVOT_X);
+        PROXY_PROPERTIES.put("pivotY", HoneycombCompat.PIVOT_Y);
+        PROXY_PROPERTIES.put("translationX", HoneycombCompat.TRANSLATION_X);
+        PROXY_PROPERTIES.put("translationY", HoneycombCompat.TRANSLATION_Y);
+        PROXY_PROPERTIES.put("rotation", HoneycombCompat.ROTATION);
+        PROXY_PROPERTIES.put("rotationX", HoneycombCompat.ROTATION_X);
+        PROXY_PROPERTIES.put("rotationY", HoneycombCompat.ROTATION_Y);
+        PROXY_PROPERTIES.put("scaleX", HoneycombCompat.SCALE_X);
+        PROXY_PROPERTIES.put("scaleY", HoneycombCompat.SCALE_Y);
+        PROXY_PROPERTIES.put("scrollX", HoneycombCompat.SCROLL_X);
+        PROXY_PROPERTIES.put("scrollY", HoneycombCompat.SCROLL_Y);
+        PROXY_PROPERTIES.put("x", HoneycombCompat.X);
+        PROXY_PROPERTIES.put("y", HoneycombCompat.Y);
+    }
 
     // The target object on which the property exists, set in the constructor
     private Object mTarget;
@@ -70,6 +90,12 @@ public final class ObjectAnimator extends ValueAnimator {
      * @param propertyName The name of the property being animated. Should not be null.
      */
     public void setPropertyName(String propertyName) {
+        // XXX Magic! Automatically proxy unavilable properties
+        if (AnimatorProxy.NEEDS_PROXY && PROXY_PROPERTIES.containsKey(propertyName)) {
+            setProperty(PROXY_PROPERTIES.get(propertyName));
+            return;
+        }
+
         // mValues could be null if this is being constructed piecemeal. Just record the
         // propertyName to be used later when setValues() is called if so.
         if (mValues != null) {

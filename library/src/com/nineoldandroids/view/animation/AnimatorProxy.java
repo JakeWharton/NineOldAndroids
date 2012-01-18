@@ -7,10 +7,24 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
+/**
+ * A proxy class to allow for modifying post-3.0 view properties on all pre-3.0
+ * platforms. <strong>DO NOT</strong> wrap your views with this class if you
+ * are using {@code ObjectAnimator} as it will handle that itself.
+ */
 public final class AnimatorProxy extends Animation {
+    /** Whether or not the current running platform needs to be proxied. */
     public static final boolean NEEDS_PROXY = Integer.valueOf(Build.VERSION.SDK).intValue() < Build.VERSION_CODES.HONEYCOMB;
     private static final int PIVOT_EXPLICITLY_SET = 1 << 0;
 
+    /**
+     * Create a proxy to allow for modifying post-3.0 view properties on all
+     * pre-3.0 platforms. <strong>DO NOT</strong> wrap your views if you are
+     * using {@code ObjectAnimator} as it will handle that itself.
+     *
+     * @param view View to wrap.
+     * @return Proxy to post-3.0 properties.
+     */
     public static AnimatorProxy wrap(View view) {
         return new AnimatorProxy(view);
     }
@@ -22,6 +36,8 @@ public final class AnimatorProxy extends Animation {
     private float mPivotX = 0;
     private float mPivotY = 0;
     private float mRotation = 0;
+    private float mRotationX = 0;
+    private float mRotationY = 0;
     private float mScaleX = 1;
     private float mScaleY = 1;
     private float mTranslationX = 0;
@@ -41,21 +57,6 @@ public final class AnimatorProxy extends Animation {
     public void setAlpha(float alpha) {
         mAlpha = alpha;
         mView.invalidate();
-    }
-    public void setBackgroundColor(int color) {
-        mView.setBackgroundColor(color);
-    }
-    public int getBottom() {
-        return mView.getBottom();
-    }
-    public void setBottom(int bottom) {
-        mView.setBottom(bottom);
-    }
-    public int getLeft() {
-        return mView.getLeft();
-    }
-    public void setLeft(int left) {
-        mView.setLeft(left);
     }
     public float getPivotX() {
         return mPivotX;
@@ -77,18 +78,30 @@ public final class AnimatorProxy extends Animation {
             mView.invalidate();
         }
     }
-    public float getRight() {
-        return mView.getRight();
-    }
-    public void setRight(int right) {
-        mView.setRight(right);
-    }
     public float getRotation() {
         return mRotation;
     }
     public void setRotation(float rotation) {
         if (mRotation != rotation) {
             mRotation = rotation;
+            mView.invalidate();
+        }
+    }
+    public float getRotationX() {
+        return mRotationX;
+    }
+    public void setRotationX(float rotationX) {
+        if (mRotationX != rotationX) {
+            mRotationX = rotationX;
+            mView.invalidate();
+        }
+    }
+    public float getRotationY() {
+        return mRotationY;
+    }
+    public void setRotationY(float rotationY) {
+        if (mRotationY != rotationY) {
+            mRotationY = rotationY;
             mView.invalidate();
         }
     }
@@ -121,12 +134,6 @@ public final class AnimatorProxy extends Animation {
     }
     public void setScrollY(int value) {
         mView.scrollTo(mView.getScrollY(), value);
-    }
-    public int getTop() {
-        return mView.getTop();
-    }
-    public void setTop(int top) {
-        mView.setTop(top);
     }
     public float getTranslationX() {
         return mTranslationX;
@@ -168,9 +175,34 @@ public final class AnimatorProxy extends Animation {
         final float pivotY = hasPivot ? mPivotY : (mView.getHeight() / 2f);
 
         final Matrix m = t.getMatrix();
-        m.postScale(mScaleX, mScaleY);
-        m.postTranslate(mTranslationX, mTranslationY);
-        m.postRotate(mRotation, pivotX, pivotY);
+        m.preScale(mScaleX, mScaleY);
+        m.preTranslate(mTranslationX, mTranslationY);
+        m.preRotate(mRotation, pivotX, pivotY);
+
+        final float rotX = mRotationX;
+        if (rotX != 0) {
+            Matrix rot = new Matrix();
+            final float cos = (float)Math.cos(rotX);
+            final float sin = (float)Math.sin(rotX);
+            rot.setValues(new float[] {
+                1, 0,   0,
+                0, cos, -sin,
+                0, sin, cos
+            });
+            m.postConcat(rot);
+        }
+        final float rotY = mRotationY;
+        if (rotY != 0) {
+            Matrix rot = new Matrix();
+            final float cos = (float)Math.cos(rotY);
+            final float sin = (float)Math.sin(rotY);
+            rot.setValues(new float[] {
+                cos,  0, sin,
+                0,    1, 0,
+                -sin, 0, cos
+            });
+            m.postConcat(rot);
+        }
 
         //Invalidate the entire parent for now
         ((ViewGroup)mView.getParent()).invalidate();
