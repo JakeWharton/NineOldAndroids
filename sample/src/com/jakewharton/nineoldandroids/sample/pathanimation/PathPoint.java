@@ -35,7 +35,7 @@ public class PathPoint {
      * The location of this PathPoint
      */
     float mX, mY;
-    
+
     /**
      * The first control point, if any, for a PathPoint of type CURVE
      */
@@ -90,7 +90,7 @@ public class PathPoint {
     public static PathPoint curveTo(float c0X, float c0Y, float c1X, float c1Y, float x, float y) {
         return new PathPoint(c0X,  c0Y, c1X, c1Y, x, y);
     }
-    
+
     /**
      * Constructs and returns a PathPoint object that describes a discontinuous move to the given
      * xy location.

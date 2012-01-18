@@ -28,7 +28,7 @@ public class PathAnimationActivity extends Activity {
     Button mButton;
     AnimatorProxy mButtonProxy;
     PathEvaluator mEvaluator = new PathEvaluator();
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +42,12 @@ public class PathAnimationActivity extends Activity {
         path.moveTo(0, 0);
         path.lineTo(0, 300);
         path.curveTo(100, 0, 300, 900, 400, 500);
-        
+
         // Set up the animation
-        final ObjectAnimator anim = ObjectAnimator.ofObject(this, "buttonLoc", 
+        final ObjectAnimator anim = ObjectAnimator.ofObject(this, "buttonLoc",
                 new PathEvaluator(), path.getPoints().toArray());
         anim.setDuration(1000);
-        
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class PathAnimationActivity extends Activity {
 
     }
 
-	/**
+    /**
      * We need this setter to translate between the information the animator
      * produces (a new "PathPoint" describing the current animated location)
      * and the information that the button requires (an xy location). The
@@ -68,5 +68,5 @@ public class PathAnimationActivity extends Activity {
         mButtonProxy.setTranslationX(newLoc.mX);
         mButtonProxy.setTranslationY(newLoc.mY);
     }
-    
+
 }

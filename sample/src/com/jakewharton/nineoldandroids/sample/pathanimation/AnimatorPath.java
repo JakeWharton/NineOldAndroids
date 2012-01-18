@@ -26,7 +26,7 @@ import java.util.Collection;
  * location (which creates a cubic B�zier curve from the previous location).
  */
 public class AnimatorPath {
-    
+
     // The points in the path
     ArrayList<PathPoint> mPoints = new ArrayList<PathPoint>();
 
