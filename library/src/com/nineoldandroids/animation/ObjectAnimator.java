@@ -40,20 +40,20 @@ public final class ObjectAnimator extends ValueAnimator {
     private static final Map<String, Property> PROXY_PROPERTIES = new HashMap<String, Property>();
 
     static {
-        PROXY_PROPERTIES.put("alpha", HoneycombCompat.ALPHA);
-        PROXY_PROPERTIES.put("pivotX", HoneycombCompat.PIVOT_X);
-        PROXY_PROPERTIES.put("pivotY", HoneycombCompat.PIVOT_Y);
-        PROXY_PROPERTIES.put("translationX", HoneycombCompat.TRANSLATION_X);
-        PROXY_PROPERTIES.put("translationY", HoneycombCompat.TRANSLATION_Y);
-        PROXY_PROPERTIES.put("rotation", HoneycombCompat.ROTATION);
-        PROXY_PROPERTIES.put("rotationX", HoneycombCompat.ROTATION_X);
-        PROXY_PROPERTIES.put("rotationY", HoneycombCompat.ROTATION_Y);
-        PROXY_PROPERTIES.put("scaleX", HoneycombCompat.SCALE_X);
-        PROXY_PROPERTIES.put("scaleY", HoneycombCompat.SCALE_Y);
-        PROXY_PROPERTIES.put("scrollX", HoneycombCompat.SCROLL_X);
-        PROXY_PROPERTIES.put("scrollY", HoneycombCompat.SCROLL_Y);
-        PROXY_PROPERTIES.put("x", HoneycombCompat.X);
-        PROXY_PROPERTIES.put("y", HoneycombCompat.Y);
+        PROXY_PROPERTIES.put("alpha", PreHoneycombCompat.ALPHA);
+        PROXY_PROPERTIES.put("pivotX", PreHoneycombCompat.PIVOT_X);
+        PROXY_PROPERTIES.put("pivotY", PreHoneycombCompat.PIVOT_Y);
+        PROXY_PROPERTIES.put("translationX", PreHoneycombCompat.TRANSLATION_X);
+        PROXY_PROPERTIES.put("translationY", PreHoneycombCompat.TRANSLATION_Y);
+        PROXY_PROPERTIES.put("rotation", PreHoneycombCompat.ROTATION);
+        PROXY_PROPERTIES.put("rotationX", PreHoneycombCompat.ROTATION_X);
+        PROXY_PROPERTIES.put("rotationY", PreHoneycombCompat.ROTATION_Y);
+        PROXY_PROPERTIES.put("scaleX", PreHoneycombCompat.SCALE_X);
+        PROXY_PROPERTIES.put("scaleY", PreHoneycombCompat.SCALE_Y);
+        PROXY_PROPERTIES.put("scrollX", PreHoneycombCompat.SCROLL_X);
+        PROXY_PROPERTIES.put("scrollY", PreHoneycombCompat.SCROLL_Y);
+        PROXY_PROPERTIES.put("x", PreHoneycombCompat.X);
+        PROXY_PROPERTIES.put("y", PreHoneycombCompat.Y);
     }
 
     // The target object on which the property exists, set in the constructor

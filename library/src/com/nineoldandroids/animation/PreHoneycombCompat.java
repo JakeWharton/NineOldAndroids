@@ -9,7 +9,7 @@ import com.nineoldandroids.util.IntProperty;
 import com.nineoldandroids.util.Property;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 
-final class HoneycombCompat {
+final class PreHoneycombCompat {
     private static final Map<Integer, WeakReference<AnimatorProxy>> PROXY_MAP = new HashMap<Integer, WeakReference<AnimatorProxy>>();
 
     private static AnimatorProxy getProxy(View view) {
@@ -184,5 +184,5 @@ final class HoneycombCompat {
 
 
     //No instances
-    private HoneycombCompat() {}
+    private PreHoneycombCompat() {}
 }
