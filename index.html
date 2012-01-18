@@ -107,7 +107,8 @@
 					<div class="span12">
 						<h2>Introduction</h2>
 						<p>Android library for using the <a href="http://android-developers.blogspot.com/2011/02/animation-in-honeycomb.html">Honeycomb (Android 3.0) animation API</a> on all versions of the platform back to 1.0!</p>
-						<p>Animation prior to Honeycomb was very limited in what it could accomplish so in Android 3.x a new API was written. While not all of it can be used on prior API levels, a large majority of it is still very useful. With only very minor changes we are able to use a large subset of the new-style animation with exactly the same API.</p>
+						<p>Animation prior to Honeycomb was very limited in what it could accomplish so in Android 3.x a new API was written. With only a change in imports, we are able to use a large subset of the new-style animation with exactly the same API.</p>
+						<p>This library also includes support for animating rotation, translation, alpha, and scale on platforms prior to Honeycomb!</p>
 						<p>Skip to the <a href="#usage">Usage</a> section for implementation details.</p>
 						<p class="screens"><img src="screens.png" alt=""/></p>
 					</div>
@@ -118,12 +119,14 @@
 				<div class="row">
 					<div class="span12"><h2>Download</h2></div>
 					<div class="span8">
-						<p class="h1"><strong>Version 1.1.0</strong> &mdash; 2011-12-13</p>
+						<p class="h1"><strong>Version 2.0.0</strong> &mdash; 2012-01-18</p>
 						<p><a href="https://github.com/JakeWharton/NineOldAndroids/zipball/master" class="btn small success">Download ZIP</a> <a href="https://github.com/JakeWharton/NineOldAndroids/tarball/master" class="btn small success">Download TGZ</a></p>
 						<p class="h2">Change Log</p>
 						<ul>
-							<li>Add <code>AnimatorInflater</code> class.</li>
-							<li>Add 'Droid Flakes' demo to samples.</li>
+							<li><code>ObjectAnimator</code> will now automatically use a compatibility implementation when animating any post-3.0 view property. The following properties are supported: <code>alpha</code>, <code>translationX</code>, <code>translationY</code>, <code>scaleX</code>, <code>scaleY</code>, <code>x</code>, <code>y</code>, <code>rotation</code>, <code>rotationX</code>, <code>rotationY</code>, <code>pivotX</code>, <code>pivotY</code>, <code>scrollX</code>, and <code>scrollY</code>.</li>
+							<li>Added <code>AnimationProxy</code> which allows for wrapping any <code>View</code> to enable alpha, translation, scale, and rotation animation.</li>
+							<li>Added 'Path Animation' demo to samples.</li>
+							<li>Enable property animation. This requires <code>com.nineoldandroids.util.Property</code> and not the native variant, however.</li>
 						</ul>
 						<p>Looking for an older version? Check <a href="https://github.com/JakeWharton/NineOldAndroids/tags">here</a>.</p>
 					</div>
@@ -139,7 +142,7 @@
 						<h2>Usage</h2>
 						<p>The API is exactly the same as the <a href="http://developer.android.com/reference/android/view/animation/package-summary.html">Honeycomb API</a>, just change your imports to use <code>com.jakewharton.nineoldandroids.*</code>.</p>
 						<p>For example, to animate a <code>View</code> vertically off of the screen you can use <code>ObjectAnimator</code></p>
-						<pre class="prettyprint">ObjectAnimator.ofFloat(myObject, "y", myObject.getY(), -myObject.getHeight()).start();</pre>
+						<pre class="prettyprint">ObjectAnimator.ofFloat(myObject, "translationY", myObject.getY(), -myObject.getHeight()).start();</pre>
 						<p>If you're familiar with the animation API already you should notice that this is precisely what would be done with the native api. The only difference, however, is that we've imported <code>com.jakewharton.nineoldandroids.ObjectAnimator</code> at the top of the file instead of <code>android.animation.ObjectAnimator</code>.</p>
 						<p>Here's another example of a <code>View</code> animating its own background to go from red to blue and then back again forever. You can see this animation in the 'Bouncing Balls' demo in the samples application.</p>
 						<pre class="prettyprint">ValueAnimator colorAnim = ObjectAnimator.ofInt(this, "backgroundColor", /*Red*/0xFFFF8080, /*Blue*/0xFF8080FF);
@@ -148,10 +151,22 @@ colorAnim.setEvaluator(new ArgbEvaluator());
 colorAnim.setRepeatCount(ValueAnimator.INFINITE);
 colorAnim.setRepeatMode(ValueAnimator.REVERSE);
 colorAnim.start();</pre>
+						<p>This library includes compatibility implementations of almost all of the new properties which were introduced with Android 3.0 allowing you to perform very complex animations that work on every API level.</p>
+						<pre class="prettyprint">AnimatorSet set = new AnimatorSet();
+set.playTogether(
+    ObjectAnimator.ofFloat(myView, "rotationX", 0, 360),
+    ObjectAnimator.ofFloat(myView, "rotationY", 0, 180),
+    ObjectAnimator.ofFloat(myView, "rotation", 0, -90),
+    ObjectAnimator.ofFloat(myView, "translationX", 0, 90),
+    ObjectAnimator.ofFloat(myView, "translationY", 0, 90),
+    ObjectAnimator.ofFloat(myView, "scaleX", 1, 1.5f),
+    ObjectAnimator.ofFloat(myView, "scaleY", 1, 0.5f),
+    ObjectAnimator.ofFloat(myView, "alpha", 1, 0.25f, 1)
+);
+set.setDuration(5 * 1000).start();</pre>
 						<p>There are some caveats to using this API on versions of Andriod prior to Honeycomb:</p>
 						<ul>
-							<li>You may only animate properties of a class where the method to do so exists. That is, any value you wish to change must have an appropriate getter and setter of the same name. Reflection is used to get and set values during animation which means that there is no compile-time checks. Ensure that what you are animating has methods present on all API levels that your application will be running on.</li>
-							<li>Native <code>Property</code> animation was introduced natively in Android 3.2 and is thus <strong>not</strong> included in this library.</li>
+							<li>The native <code>Property</code> class and its animation was introduced in Android 3.2 and is thus <strong>not</strong> included in this library. There is, however, a <code>com.nineoldandroids.util.Property</code> class which allows you to create custom properties on your own views for easier animation.</li>
 							<li><code>LayoutTransition</code> is not possible to implement prior to Android 3.0 and is not included.</li>
 							<li><code>ViewPropertyAnimator</code> is not included at this time. It is theoretically possible to support this class and it will be added at a future time.</li>
 						</ul>
