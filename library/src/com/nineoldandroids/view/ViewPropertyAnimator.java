@@ -266,7 +266,7 @@ public class ViewPropertyAnimator {
     }
 
     private static class NativeImpl implements Native {
-        private android.view.ViewPropertyAnimator mNative;
+        private final android.view.ViewPropertyAnimator mNative;
 
         NativeImpl(View view) {
             mNative = view.animate();
