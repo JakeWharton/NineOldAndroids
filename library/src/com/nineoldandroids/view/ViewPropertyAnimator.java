@@ -298,9 +298,28 @@ public class ViewPropertyAnimator {
         }
 
         @Override
-        public void setListener(AnimatorListener listener) {
-            // TODO Not sure what to do here. We can dispatch callbacks fine but we can't pass
-            // back the native animation instance... perhaps just null?
+        public void setListener(final AnimatorListener listener) {
+            mNative.setListener(new android.animation.Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(android.animation.Animator animation) {
+                    listener.onAnimationStart(null);
+                }
+
+                @Override
+                public void onAnimationRepeat(android.animation.Animator animation) {
+                    listener.onAnimationRepeat(null);
+                }
+
+                @Override
+                public void onAnimationEnd(android.animation.Animator animation) {
+                    listener.onAnimationEnd(null);
+                }
+
+                @Override
+                public void onAnimationCancel(android.animation.Animator animation) {
+                    listener.onAnimationCancel(null);
+                }
+            });
         }
 
         @Override
