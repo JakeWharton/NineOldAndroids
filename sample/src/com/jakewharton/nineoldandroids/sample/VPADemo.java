@@ -1,6 +1,6 @@
 package com.jakewharton.nineoldandroids.sample;
 
-import com.nineoldandroids.view.ViewPropertyAnimator;
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,19 +24,19 @@ public class VPADemo extends Activity {
         final Button animatingButton = (Button) findViewById(R.id.animatingButton);
 
         // Set long default duration for the animator, for the purposes of this demo
-        ViewPropertyAnimator.animate(animatingButton).setDuration(2000);
+        animate(animatingButton).setDuration(2000);
 
         fadeOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewPropertyAnimator.animate(animatingButton).alpha(0);
+                animate(animatingButton).alpha(0);
             }
         });
 
         fadeIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewPropertyAnimator.animate(animatingButton).alpha(1);
+                animate(animatingButton).alpha(1);
             }
         });
 
@@ -45,21 +45,21 @@ public class VPADemo extends Activity {
             public void onClick(View v) {
                 int xValue = container.getWidth() - animatingButton.getWidth();
                 int yValue = container.getHeight() - animatingButton.getHeight();
-                ViewPropertyAnimator.animate(animatingButton).x(xValue).y(yValue);
+                animate(animatingButton).x(xValue).y(yValue);
             }
         });
 
         moveBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewPropertyAnimator.animate(animatingButton).x(0).y(0);
+                animate(animatingButton).x(0).y(0);
             }
         });
 
         rotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewPropertyAnimator.animate(animatingButton).rotationYBy(720);
+                animate(animatingButton).rotationYBy(720);
             }
         });
     }
