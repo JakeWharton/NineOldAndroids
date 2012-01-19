@@ -19,13 +19,13 @@ public class Toggles extends Activity {
         ((Button)findViewById(R.id.tx)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ObjectAnimator.ofFloat(target, "translationX", 0, 100, 0).setDuration(duration).start();
+                ObjectAnimator.ofFloat(target, "translationX", 0, 50, -50, 0).setDuration(duration).start();
             }
         });
         ((Button)findViewById(R.id.ty)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ObjectAnimator.ofFloat(target, "translationY", 0, 100, 0).setDuration(duration).start();
+                ObjectAnimator.ofFloat(target, "translationY", 0, 50, -50, 0).setDuration(duration).start();
             }
         });
         ((Button)findViewById(R.id.sx)).setOnClickListener(new OnClickListener() {
