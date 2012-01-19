@@ -29,6 +29,15 @@
                 <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".VPADemo"
+            android:label="ViewPropertyAnimator Demo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.jakewharton.nineoldandroids.sample.SAMPLE"/>
+            </intent-filter>
+        </activity>
 
         <!-- API DEMOS -->
         <activity
