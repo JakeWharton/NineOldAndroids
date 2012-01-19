@@ -1,8 +1,6 @@
 package com.nineoldandroids.animation;
 
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.WeakHashMap;
 import android.view.View;
 import com.nineoldandroids.util.FloatProperty;
 import com.nineoldandroids.util.IntProperty;
@@ -10,19 +8,14 @@ import com.nineoldandroids.util.Property;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 
 final class PreHoneycombCompat {
-    private static final Map<Integer, WeakReference<AnimatorProxy>> PROXY_MAP = new HashMap<Integer, WeakReference<AnimatorProxy>>();
+    private static final WeakHashMap<View, AnimatorProxy> PROXIES =
+            new WeakHashMap<View, AnimatorProxy>();
 
     private static AnimatorProxy getProxy(View view) {
-        final Integer hashCode = view.hashCode(); //autobox once
-        AnimatorProxy proxy = null;
-        WeakReference<AnimatorProxy> proxyRef = PROXY_MAP.get(hashCode);
-        if (proxyRef != null) {
-            proxy = proxyRef.get();
-        }
+        AnimatorProxy proxy = PROXIES.get(view);
         if (proxy == null) {
-            View targetView = (View)view;
-            proxy = AnimatorProxy.wrap(targetView);
-            PROXY_MAP.put(hashCode, new WeakReference<AnimatorProxy>(proxy));
+            proxy = AnimatorProxy.wrap(view);
+            PROXIES.put(view, proxy);
         }
         return proxy;
     }
