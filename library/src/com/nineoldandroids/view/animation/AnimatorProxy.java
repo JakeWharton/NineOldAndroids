@@ -174,28 +174,36 @@ public final class AnimatorProxy extends Animation {
         t.setAlpha(mAlpha);
 
         final View view = mView;
+        final float w = view.getWidth();
+        final float h = view.getHeight();
         final Matrix m = t.getMatrix();
 
-        final boolean hasPivot = mHasPivot;
-        final float pivotX = hasPivot ? mPivotX : (view.getWidth() / 2f);
-        final float pivotY = hasPivot ? mPivotY : (view.getHeight() / 2f);
-
-        final float rotX = mRotationX;
-        final float rotY = mRotationY;
-        final float rotZ = mRotationZ;
-        if ((rotX != 0) || (rotY != 0) || (rotZ != 0)) {
+        final float rX = mRotationX;
+        final float rY = mRotationY;
+        final float rZ = mRotationZ;
+        if ((rX != 0) || (rY != 0) || (rZ != 0)) {
             final Camera camera = mCamera;
+            final boolean hasPivot = mHasPivot;
+            final float pX = hasPivot ? mPivotX : w/2f;
+            final float pY = hasPivot ? mPivotY : h/2f;
             camera.save();
-            camera.rotateX(rotX);
-            camera.rotateY(rotY);
-            camera.rotateZ(rotZ);
+            camera.rotateX(rX);
+            camera.rotateY(rY);
+            camera.rotateZ(-rZ);
             camera.getMatrix(m);
             camera.restore();
-            m.preTranslate(-pivotX, -pivotY);
-            m.postTranslate(pivotX, pivotY);
+            m.preTranslate(-pX, -pY);
+            m.postTranslate(pX, pY);
         }
 
-        m.postScale(mScaleX, mScaleY);
+        final float sX = mScaleX;
+        final float sY = mScaleY;
+        if ((sX != 0) || (sX != 0)) {
+            final float deltaSX = ((sX * w) - w) / 2f;
+            final float deltaSY = ((sY * h) - h) / 2f;
+            m.postScale(sX, sY);
+            m.postTranslate(-deltaSX, -deltaSY);
+        }
         m.postTranslate(mTranslationX, mTranslationY);
     }
 }
