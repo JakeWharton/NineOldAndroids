@@ -1,5 +1,6 @@
 package com.nineoldandroids.view.animation;
 
+import java.util.WeakHashMap;
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.os.Build;
@@ -17,6 +18,9 @@ public final class AnimatorProxy extends Animation {
     /** Whether or not the current running platform needs to be proxied. */
     public static final boolean NEEDS_PROXY = Integer.valueOf(Build.VERSION.SDK).intValue() < Build.VERSION_CODES.HONEYCOMB;
 
+    private static final WeakHashMap<View, AnimatorProxy> PROXIES =
+            new WeakHashMap<View, AnimatorProxy>();
+
     /**
      * Create a proxy to allow for modifying post-3.0 view properties on all
      * pre-3.0 platforms. <strong>DO NOT</strong> wrap your views if you are
@@ -26,7 +30,12 @@ public final class AnimatorProxy extends Animation {
      * @return Proxy to post-3.0 properties.
      */
     public static AnimatorProxy wrap(View view) {
-        return new AnimatorProxy(view);
+        AnimatorProxy proxy = PROXIES.get(view);
+        if (proxy == null) {
+            proxy = AnimatorProxy.wrap(view);
+            PROXIES.put(view, proxy);
+        }
+        return proxy;
     }
 
     private final View mView;
