@@ -19,6 +19,7 @@ package com.nineoldandroids.view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
@@ -433,8 +434,16 @@ public class ViewPropertyAnimator {
         }
     }
 
+    private static WeakHashMap<View, ViewPropertyAnimator> ANIMATORS =
+            new WeakHashMap<View, ViewPropertyAnimator>();
+
     public static ViewPropertyAnimator animate(View view) {
-        return new ViewPropertyAnimator(view);
+        ViewPropertyAnimator animator = ANIMATORS.get(view);
+        if (animator == null) {
+            animator = new ViewPropertyAnimator(view);
+            ANIMATORS.put(view, animator);
+        }
+        return animator;
     }
 
 
