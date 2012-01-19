@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 2.0.1 *(2012-01-18)*
+----------------------------
+
+ * Rotation and scale animation now mirrors the native counterpart behavior.
+ * Add 'Toggles' sample.
+
+
 Version 2.0.0 *(2012-01-18)*
 ----------------------------
 
