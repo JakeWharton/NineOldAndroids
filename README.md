@@ -18,6 +18,8 @@ to use `com.nineoldandroids.XXX`.
 Take a look at a few demos taken from the [platform ApiDemos][3] in the
 `sample/` folder. You can also try it out on the [Android Market][4].
 
+More information is available on [nineoldandroids.com][6].
+
 
 Including In Your Project
 -------------------------
@@ -76,3 +78,4 @@ License
  [3]: http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/animation/index.html
  [4]: https://market.android.com/details?id=com.jakewharton.nineoldandroids.sample
  [5]: https://github.com/JakeWharton/NineOldAndroids/downloads
+ [6]: http://nineoldandroids.com
