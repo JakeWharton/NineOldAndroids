@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+Version 2.1.0 *(In Development)*
+--------------------------------
+
+ * Added 'ViewPropertyAnimator` compatibility implementation. See the
+   'ViewPropertyAnimator Demo' sample for usage.
+ * `AnimatorProxy` will now return a previous instance is one has already
+   been created for the specified `View`.
+
+
 Version 2.0.1 *(2012-01-18)*
 ----------------------------
 
