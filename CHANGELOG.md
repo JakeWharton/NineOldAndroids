@@ -1,8 +1,8 @@
 Change Log
 ==========
 
-Version 2.1.0 *(In Development)*
---------------------------------
+Version 2.1.0 *(2012-01-26)*
+----------------------------
 
  * Added `ViewPropertyAnimator` compatibility implementation. See the
    'ViewPropertyAnimator Demo' sample for usage.

@@ -2,10 +2,12 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jakewharton.nineoldandroids.sample"
-    android:versionCode="31"
-    android:versionName="2.0.1">
+    android:versionCode="35"
+    android:versionName="2.1.0">
 
-    <uses-sdk android:minSdkVersion="1" android:targetSdkVersion="14" />
+    <uses-sdk
+        android:minSdkVersion="1"
+        android:targetSdkVersion="14" />
 
     <application
         android:icon="@drawable/ic_launcher"
