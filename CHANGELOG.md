@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 2.1.1 *(2012-01-27)*
+----------------------------
+
+ * Fix `StackOverflowException` when using `AnimatorProxy` on pre-3.0 devices.
+
+
 Version 2.1.0 *(2012-01-26)*
 ----------------------------
 
