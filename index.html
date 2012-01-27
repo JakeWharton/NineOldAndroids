@@ -130,14 +130,12 @@
 				<div class="row">
 					<div class="span12"><h2>Download</h2></div>
 					<div class="span8">
-						<p class="h1"><strong>Version 2.0.1</strong> &mdash; 2012-01-18</p>
+						<p class="h1"><strong>Version 2.1.0</strong> &mdash; 2012-01-26</p>
 						<p><a href="https://github.com/JakeWharton/NineOldAndroids/zipball/master" class="btn small success">Download ZIP</a> <a href="https://github.com/JakeWharton/NineOldAndroids/tarball/master" class="btn small success">Download TGZ</a></p>
 						<p class="h2">Change Log</p>
 						<ul>
-							<li><code>ObjectAnimator</code> will now automatically use a compatibility implementation when animating any post-3.0 view property. The following properties are supported: <code>alpha</code>, <code>translationX</code>, <code>translationY</code>, <code>scaleX</code>, <code>scaleY</code>, <code>x</code>, <code>y</code>, <code>rotation</code>, <code>rotationX</code>, <code>rotationY</code>, <code>pivotX</code>, <code>pivotY</code>, <code>scrollX</code>, and <code>scrollY</code>.</li>
-							<li>Added <code>AnimationProxy</code> which allows for wrapping any <code>View</code> to enable alpha, translation, scale, and rotation animation.</li>
-							<li>Added 'Path Animation' and 'Toggles' demo to samples.</li>
-							<li>Enable property animation. This requires <code>com.nineoldandroids.util.Property</code> and not the native variant, however.</li>
+							<li>Added <code>ViewPropertyAnimator</code> compatibility implementation. See the 'ViewPropertyAnimator Demo' sample for usage.</li>
+							<li><code>AnimatorProxy</code> will now return a previous instance is one has already been created for the specified <code>View</code>.</li>
 						</ul>
 						<p>Looking for an older version? Check <a href="https://github.com/JakeWharton/NineOldAndroids/tags">here</a>.</p>
 					</div>
