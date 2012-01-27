@@ -32,7 +32,7 @@ public final class AnimatorProxy extends Animation {
     public static AnimatorProxy wrap(View view) {
         AnimatorProxy proxy = PROXIES.get(view);
         if (proxy == null) {
-            proxy = AnimatorProxy.wrap(view);
+            proxy = new AnimatorProxy(view);
             PROXIES.put(view, proxy);
         }
         return proxy;
