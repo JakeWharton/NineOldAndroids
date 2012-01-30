@@ -24,7 +24,7 @@ import android.view.animation.Interpolator;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 
-public class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
+class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
     /**
      * The View whose properties are being animated by this class. This is set at
      * construction time.

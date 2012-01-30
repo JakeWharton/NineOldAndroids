@@ -25,7 +25,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 
-public class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
+class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
     /**
      * Proxy animation class which will allow us access to post-Honeycomb properties that were not
      * otherwise available.
