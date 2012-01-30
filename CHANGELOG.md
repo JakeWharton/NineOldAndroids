@@ -1,10 +1,18 @@
 Change Log
 ==========
 
+Version 2.2.0 *(2012-01-30)*
+----------------------------
+
+ * Provide a feature-complete implementation of `ViewPropertyAnimator` for
+   Honeycomb which previously did not offer the full API of the Android 4.0+
+   version.
+
+
 Version 2.1.1 *(2012-01-27)*
 ----------------------------
 
- * Fix `StackOverflowException` when using `AnimatorProxy` on pre-3.0 devices.
+ * Fix `StackOverflowError` when using `AnimatorProxy` on pre-3.0 devices.
 
 
 Version 2.1.0 *(2012-01-26)*
