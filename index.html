@@ -11,8 +11,9 @@
 		<!-- IE Fix for HTML5 Tags -->
 		<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="js/google-code-prettify/prettify.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.responsive">
+		<link rel="stylesheet" href="google-code-prettify/prettify.css">
 		<style type="text/css">
 			html, body {
 				background: #eee url('old_mathematics.png') repeat;
@@ -21,9 +22,8 @@
 				padding-top: 70px;
 				padding-bottom: 30px;
 			}
-			.navbar-inner, .nav .dropdown-menu {
+			.navbar-inner {
 				background: #222 url('gray_sand.png') repeat;
-				top: 41px;
 			}
 			.screens {
 				text-align: center;
@@ -31,9 +31,6 @@
 			}
 			h2 {
 				margin-bottom: 0.5em;
-			}
-			.nav .dropdown-menu li a:hover {
-				background: transparent;
 			}
 			ol li {
 				margin-bottom: 20px;
@@ -74,6 +71,15 @@
 				top: 40px;
 				right: 0px;
 			}
+
+			@media (max-width: 980px) {
+				#forkme { display: none; }
+			}
+			@media (min-width: 980px) {
+				.nav .dropdown-menu li a:hover {
+					background: #222 url('gray_sand.png') repeat;
+				}
+			}
 		</style>
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
@@ -88,26 +94,33 @@
 		</script>
 	</head>
 	<body>
-		<div class="navbar navbar-fixed">
+		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
 					<a class="brand" href="/">NineOldAndroids</a>
-					<ul class="nav secondary-nav">
-						<li><a href="#introduction">Introduction</a></li>
-						<li><a href="#download">Download</a></li>
-						<li><a href="#usage">Usage</a></li>
-						<li><a href="#credits">Credits</a></li>
-						<li class="divider"></li>
-						<li class="dropdown">
-							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><strong>More Libraries</strong></a>
-							<ul class="dropdown-menu">
-								<li><a href="http://actionbarsherlock.com/">ActionBarSherlock</a></li>
-								<li><a href="http://viewpagerindicator.com/">ViewPagerIndicator</a></li>
-								<li><a href="http://hansel-and-gretel.com/">HanselAndGretel</a></li>
-								<li><a href="https://github.com/JakeWharton/Android-DirectionalViewPager/">DirectionalViewPager</a></li>
-							</ul>
-						</li>
-					</ul>
+					<div class="nav-collapse">
+						<ul class="nav pull-right">
+							<li><a href="#introduction">Introduction</a></li>
+							<li><a href="#download">Download</a></li>
+							<li><a href="#usage">Usage</a></li>
+							<li><a href="#credits">Credits</a></li>
+							<li class="divider-vertical"></li>
+							<li class="dropdown">
+								<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><strong>More Libraries</strong> <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="http://actionbarsherlock.com/">ActionBarSherlock</a></li>
+									<li><a href="http://viewpagerindicator.com/">ViewPagerIndicator</a></li>
+									<li><a href="http://hansel-and-gretel.com/">HanselAndGretel</a></li>
+									<li><a href="https://github.com/JakeWharton/Android-DirectionalViewPager/">DirectionalViewPager</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -200,13 +213,11 @@ animate(myButton).setDuration(2000).rotationYBy(720).x(100).y(100);</pre>
 			</section>
 		</div>
 
-		<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-		<script src="js/bootstrap-dropdown.js"></script>
-		<script src="js/google-code-prettify/prettify.js"></script>
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="google-code-prettify/prettify.js"></script>
 		<script>
-			$(function () {
-				prettyPrint();
-			});
+			prettyPrint();
 		</script>
 	</body>
 </html>
