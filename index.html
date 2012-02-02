@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/Product">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<meta name="description" content="Android library for using the Honeycomb (Android 3.0) animation API on all versions of the platform back to 1.0!">
+
+		<meta itemprop="name" content="NineOldAndroids">
+		<meta itemprop="description" content="Android library for using the Honeycomb (Android 3.0) animation API on all versions of the platform back to 1.0!">
+		<meta itemprop="image" content="http://nineoldandroids.com/screens.png">
 
 		<title>NineOldAndroids</title>
 
@@ -40,6 +44,10 @@
 			}
 			#logo {
 				margin-bottom: -40px;
+			}
+			.social {
+				text-align: center;
+				margin-top: 15px;
 			}
 			td.indicator {
 				width: 320px;
@@ -135,6 +143,11 @@
 						<p>This library also includes support for animating rotation, translation, alpha, and scale on platforms prior to Honeycomb!</p>
 						<p>Skip to the <a href="#usage">Usage</a> section for implementation details.</p>
 						<p class="screens"><img src="screens.png" alt=""/></p>
+						<div class="social">
+							<g:plusone href="http://nineoldandroids.com"></g:plusone>
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://nineoldandroids.com" data-text="Android library for using the Honeycomb animation API on all versions of the platform." data-via="JakeWharton" data-size="large">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+						</div>
 					</div>
 				</div>
 			</section>
