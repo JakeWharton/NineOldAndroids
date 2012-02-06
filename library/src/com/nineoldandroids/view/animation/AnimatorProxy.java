@@ -67,15 +67,17 @@ public final class AnimatorProxy extends Animation {
         return mAlpha;
     }
     public void setAlpha(float alpha) {
-        mAlpha = alpha;
-        mView.invalidate();
+        if (mAlpha != alpha) {
+            mAlpha = alpha;
+            mView.invalidate();
+        }
     }
     public float getPivotX() {
         return mPivotX;
     }
     public void setPivotX(float pivotX) {
-        mHasPivot = true;
-        if (mPivotX != pivotX) {
+        if (!mHasPivot || mPivotX != pivotX) {
+            mHasPivot = true;
             mPivotX = pivotX;
             mViewParent.invalidate();
         }
@@ -84,8 +86,8 @@ public final class AnimatorProxy extends Animation {
         return mPivotY;
     }
     public void setPivotY(float pivotY) {
-        mHasPivot = true;
-        if (mPivotY != pivotY) {
+        if (!mHasPivot || mPivotY != pivotY) {
+            mHasPivot = true;
             mPivotY = pivotY;
             mViewParent.invalidate();
         }
