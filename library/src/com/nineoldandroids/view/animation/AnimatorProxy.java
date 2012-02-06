@@ -207,7 +207,7 @@ public final class AnimatorProxy extends Animation {
 
         final float sX = mScaleX;
         final float sY = mScaleY;
-        if ((sX != 0) || (sX != 0)) {
+        if ((sX != 0) || (sY != 0)) {
             final float deltaSX = ((sX * w) - w) / 2f;
             final float deltaSY = ((sY * h) - h) / 2f;
             m.postScale(sX, sY);
