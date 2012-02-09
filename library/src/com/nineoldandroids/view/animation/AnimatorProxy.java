@@ -3,6 +3,7 @@ package com.nineoldandroids.view.animation;
 import java.util.WeakHashMap;
 import android.graphics.Camera;
 import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,18 +42,23 @@ public final class AnimatorProxy extends Animation {
     private final View mView;
     private final ViewGroup mViewParent;
     private final Camera mCamera;
-    private boolean mHasPivot = false;
+	private boolean mHasPivot;
 
     private float mAlpha = 1;
-    private float mPivotX = 0;
-    private float mPivotY = 0;
-    private float mRotationX = 0;
-    private float mRotationY = 0;
-    private float mRotationZ = 0;
+	private boolean mIdentity;
+    private float mPivotX;
+    private float mPivotY;
+    private float mRotationX;
+    private float mRotationY;
+    private float mRotationZ;
     private float mScaleX = 1;
     private float mScaleY = 1;
-    private float mTranslationX = 0;
-    private float mTranslationY = 0;
+    private float mTranslationX;
+    private float mTranslationY;
+
+	private final RectF mBefore = new RectF();
+	private final RectF mAfter = new RectF();
+	private final Matrix mTempMatrix = new Matrix();
 
     private AnimatorProxy(View view) {
         setDuration(0); //perform transformation immediately
@@ -62,24 +68,68 @@ public final class AnimatorProxy extends Animation {
         mViewParent = (ViewGroup)view.getParent();
         mCamera = new Camera();
     }
+	private void computeRect(final RectF r) {
+		// compute current rectangle according to matrix transformation
+		final View view = mView;
+		final float w = view.getWidth();
+		final float h = view.getHeight();
 
+		// use a rectangle at 0,0 to make sure we don't run into issues with scaling
+		r.set(0,0,w,h);
+
+		final Matrix m = mTempMatrix;
+		m.reset();
+		transformMatrix(m);
+		mTempMatrix.mapRect(r);
+
+		r.offset(view.getLeft(), view.getTop());
+
+		// Straighten coords if rotations flipped them
+		if (r.right < r.left)
+		{
+			final float f = r.right;
+			r.right = r.left;
+			r.left = f;
+		}
+		if (r.bottom < r.top)
+		{
+			final float f = r.top;
+			r.top = r.bottom;
+			r.bottom = f;
+		}
+	}
+	private void invalidate(RectF r) {
+		mViewParent.invalidate((int) Math.floor(r.left),
+							   (int) Math.floor(r.top),
+							   (int) Math.ceil(r.right),
+							   (int) Math.ceil(r.bottom));
+	}
+	private void prepareForUpdate() {
+		computeRect(mBefore);
+	}
+	private void invalidateAfterUpdate() {
+		computeRect(mAfter);
+		mAfter.union(mBefore);
+		invalidate(mAfter);
+	}
     public float getAlpha() {
         return mAlpha;
     }
     public void setAlpha(float alpha) {
-        if (mAlpha != alpha) {
-            mAlpha = alpha;
-            mView.invalidate();
-        }
+		if (mAlpha != alpha) {
+			mAlpha = alpha;
+			mView.invalidate();
+		}
     }
     public float getPivotX() {
         return mPivotX;
     }
     public void setPivotX(float pivotX) {
         if (!mHasPivot || mPivotX != pivotX) {
-            mHasPivot = true;
+			prepareForUpdate();
+			mHasPivot = true;
             mPivotX = pivotX;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getPivotY() {
@@ -87,9 +137,10 @@ public final class AnimatorProxy extends Animation {
     }
     public void setPivotY(float pivotY) {
         if (!mHasPivot || mPivotY != pivotY) {
-            mHasPivot = true;
+			prepareForUpdate();
+			mHasPivot = true;
             mPivotY = pivotY;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getRotation() {
@@ -97,8 +148,9 @@ public final class AnimatorProxy extends Animation {
     }
     public void setRotation(float rotation) {
         if (mRotationZ != rotation) {
+			prepareForUpdate();
             mRotationZ = rotation;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getRotationX() {
@@ -106,26 +158,31 @@ public final class AnimatorProxy extends Animation {
     }
     public void setRotationX(float rotationX) {
         if (mRotationX != rotationX) {
+			prepareForUpdate();
             mRotationX = rotationX;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getRotationY() {
         return mRotationY;
     }
-    public void setRotationY(float rotationY) {
+
+	public void setRotationY(float rotationY) {
         if (mRotationY != rotationY) {
+			prepareForUpdate();
             mRotationY = rotationY;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
-    public float getScaleX() {
-        return mScaleX;
+    public float getScaleX()
+	{
+		return mScaleX;
     }
     public void setScaleX(float scaleX) {
         if (mScaleX != scaleX) {
+			prepareForUpdate();
             mScaleX = scaleX;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getScaleY() {
@@ -133,10 +190,26 @@ public final class AnimatorProxy extends Animation {
     }
     public void setScaleY(float scaleY) {
         if (mScaleY != scaleY) {
+			prepareForUpdate();
             mScaleY = scaleY;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
+	public float getScale() {
+		// this is a pseudo-property for the frequent case where
+		// scaleX and scaleY are being updated synchronously
+		return Math.max(mScaleX, mScaleY);
+	}
+	public void setScale(float scale) {
+		// this is a pseudo-property for the frequent case where
+		// scaleX and scaleY are being updated synchronously
+		if (mScaleX != scale || mScaleY != scale) {
+			prepareForUpdate();
+			mScaleX = scale;
+			mScaleY = scale;
+			invalidateAfterUpdate();
+		}
+	}
     public int getScrollX() {
         return mView.getScrollX();
     }
@@ -149,13 +222,15 @@ public final class AnimatorProxy extends Animation {
     public void setScrollY(int value) {
         mView.scrollTo(mView.getScrollY(), value);
     }
-    public float getTranslationX() {
+
+	public float getTranslationX() {
         return mTranslationX;
     }
     public void setTranslationX(float translationX) {
         if (mTranslationX != translationX) {
+			prepareForUpdate();
             mTranslationX = translationX;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getTranslationY() {
@@ -163,8 +238,9 @@ public final class AnimatorProxy extends Animation {
     }
     public void setTranslationY(float translationY) {
         if (mTranslationY != translationY) {
+			prepareForUpdate();
             mTranslationY = translationY;
-            mViewParent.invalidate();
+            invalidateAfterUpdate();
         }
     }
     public float getX() {
@@ -183,38 +259,40 @@ public final class AnimatorProxy extends Animation {
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         t.setAlpha(mAlpha);
-
-        final View view = mView;
-        final float w = view.getWidth();
-        final float h = view.getHeight();
-        final Matrix m = t.getMatrix();
-
-        final float rX = mRotationX;
-        final float rY = mRotationY;
-        final float rZ = mRotationZ;
-        if ((rX != 0) || (rY != 0) || (rZ != 0)) {
-            final Camera camera = mCamera;
-            final boolean hasPivot = mHasPivot;
-            final float pX = hasPivot ? mPivotX : w/2f;
-            final float pY = hasPivot ? mPivotY : h/2f;
-            camera.save();
-            camera.rotateX(rX);
-            camera.rotateY(rY);
-            camera.rotateZ(-rZ);
-            camera.getMatrix(m);
-            camera.restore();
-            m.preTranslate(-pX, -pY);
-            m.postTranslate(pX, pY);
-        }
-
-        final float sX = mScaleX;
-        final float sY = mScaleY;
-        if ((sX != 1.0f) || (sY != 1.0f)) {
-            final float deltaSX = ((sX * w) - w) / 2f;
-            final float deltaSY = ((sY * h) - h) / 2f;
-            m.postScale(sX, sY);
-            m.postTranslate(-deltaSX, -deltaSY);
-        }
-        m.postTranslate(mTranslationX, mTranslationY);
+		transformMatrix(t.getMatrix());
     }
+
+	private void transformMatrix(Matrix m) {
+		final View view = mView;
+		final float w = view.getWidth();
+		final float h = view.getHeight();
+
+		final float rX = mRotationX;
+		final float rY = mRotationY;
+		final float rZ = mRotationZ;
+		if ((rX != 0) || (rY != 0) || (rZ != 0)) {
+			final Camera camera = mCamera;
+			final boolean hasPivot = mHasPivot;
+			final float pX = hasPivot ? mPivotX : w / 2f;
+			final float pY = hasPivot ? mPivotY : h / 2f;
+			camera.save();
+			camera.rotateX(rX);
+			camera.rotateY(rY);
+			camera.rotateZ(-rZ);
+			camera.getMatrix(m);
+			camera.restore();
+			m.preTranslate(-pX, -pY);
+			m.postTranslate(pX, pY);
+		}
+
+		final float sX = mScaleX;
+		final float sY = mScaleY;
+		if ((sX != 1.0f) || (sY != 1.0f)) {
+			final float deltaSX = ((sX * w) - w) / 2f;
+			final float deltaSY = ((sY * h) - h) / 2f;
+			m.postScale(sX, sY);
+			m.postTranslate(-deltaSX, -deltaSY);
+		}
+		m.postTranslate(mTranslationX, mTranslationY);
+	}
 }
