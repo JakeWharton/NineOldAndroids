@@ -90,15 +90,7 @@
 			}
 		</style>
 		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-3637749-17']);
-			_gaq.push(['_trackPageview']);
-
 			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-
 				var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 				po.src = 'https://apis.google.com/js/plusone.js';
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
@@ -235,6 +227,18 @@ animate(myButton).setDuration(2000).rotationYBy(720).x(100).y(100);</pre>
 		<script src="google-code-prettify/prettify.js"></script>
 		<script>
 			prettyPrint();
+
+			var _gauges = _gauges || [];
+			(function() {
+				var t   = document.createElement('script');
+				t.type  = 'text/javascript';
+				t.async = true;
+				t.id    = 'gauges-tracker';
+				t.setAttribute('data-site-id', '4f455d93844d5213d000007d');
+				t.src = '//secure.gaug.es/track.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(t, s);
+			})();
 		</script>
 	</body>
 </html>
