@@ -5,7 +5,7 @@ Version 2.3.0 *(In Development*)
 --------------------------------
 
  * Intelligent invalidation of parent view will only cause a redraw of the
-   parts that have changed.
+   parts that have changed. *(Thanks to Florent Pillet)*
  * Maintain weak reference to animated view so that we do not prevent it from
    being garbage collected.
 
