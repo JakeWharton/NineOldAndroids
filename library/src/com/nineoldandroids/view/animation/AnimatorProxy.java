@@ -1,12 +1,12 @@
 package com.nineoldandroids.view.animation;
 
+import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
@@ -39,8 +39,7 @@ public final class AnimatorProxy extends Animation {
         return proxy;
     }
 
-    private final View mView;
-    private final ViewGroup mViewParent;
+    private final WeakReference<View> mView;
     private final Camera mCamera = new Camera();
     private boolean mHasPivot;
 
@@ -63,8 +62,7 @@ public final class AnimatorProxy extends Animation {
         setDuration(0); //perform transformation immediately
         setFillAfter(true); //persist transformation beyond duration
         view.setAnimation(this);
-        mView = view;
-        mViewParent = (ViewGroup)view.getParent();
+        mView = new WeakReference<View>(view);
     }
 
     public float getAlpha() {
@@ -73,7 +71,10 @@ public final class AnimatorProxy extends Animation {
     public void setAlpha(float alpha) {
         if (mAlpha != alpha) {
             mAlpha = alpha;
-            mView.invalidate();
+            View view = mView.get();
+            if (view != null) {
+                view.invalidate();
+            }
         }
     }
     public float getPivotX() {
@@ -150,16 +151,30 @@ public final class AnimatorProxy extends Animation {
         }
     }
     public int getScrollX() {
-        return mView.getScrollX();
+        View view = mView.get();
+        if (view == null) {
+            return 0;
+        }
+        return view.getScrollX();
     }
     public void setScrollX(int value) {
-        mView.scrollTo(value, mView.getScrollY());
+        View view = mView.get();
+        if (view != null) {
+            view.scrollTo(value, view.getScrollY());
+        }
     }
     public int getScrollY() {
-        return mView.getScrollY();
+        View view = mView.get();
+        if (view == null) {
+            return 0;
+        }
+        return view.getScrollY();
     }
     public void setScrollY(int value) {
-        mView.scrollTo(mView.getScrollY(), value);
+        View view = mView.get();
+        if (view != null) {
+            view.scrollTo(view.getScrollY(), value);
+        }
     }
 
     public float getTranslationX() {
@@ -183,16 +198,30 @@ public final class AnimatorProxy extends Animation {
         }
     }
     public float getX() {
-        return mView.getLeft() + mTranslationX;
+        View view = mView.get();
+        if (view == null) {
+            return 0;
+        }
+        return view.getLeft() + mTranslationX;
     }
     public void setX(float x) {
-        setTranslationX(x - mView.getLeft());
+        View view = mView.get();
+        if (view != null) {
+            setTranslationX(x - view.getLeft());
+        }
     }
     public float getY() {
-        return mView.getTop() + mTranslationY;
+        View view = mView.get();
+        if (view == null) {
+            return 0;
+        }
+        return view.getTop() + mTranslationY;
     }
     public void setY(float y) {
-        setTranslationY(y - mView.getTop());
+        View view = mView.get();
+        if (view != null) {
+            setTranslationY(y - view.getTop());
+        }
     }
 
     public float getScale() {
@@ -212,23 +241,30 @@ public final class AnimatorProxy extends Animation {
     }
 
     private void prepareForUpdate() {
-        computeRect(mBefore);
+        View view = mView.get();
+        if (view != null) {
+            computeRect(mBefore, view);
+        }
     }
     private void invalidateAfterUpdate() {
+        View view = mView.get();
+        if (view == null) {
+            return;
+        }
+
         final RectF after = mAfter;
-        computeRect(after);
+        computeRect(after, view);
         after.union(mBefore);
 
-        mViewParent.invalidate(
+        ((View)view.getParent()).invalidate(
                 (int) Math.floor(after.left),
                 (int) Math.floor(after.top),
                 (int) Math.ceil(after.right),
                 (int) Math.ceil(after.bottom));
     }
 
-    private void computeRect(final RectF r) {
+    private void computeRect(final RectF r, View view) {
         // compute current rectangle according to matrix transformation
-        final View view = mView;
         final float w = view.getWidth();
         final float h = view.getHeight();
 
@@ -237,7 +273,7 @@ public final class AnimatorProxy extends Animation {
 
         final Matrix m = mTempMatrix;
         m.reset();
-        transformMatrix(m);
+        transformMatrix(m, view);
         mTempMatrix.mapRect(r);
 
         r.offset(view.getLeft(), view.getTop());
@@ -255,8 +291,7 @@ public final class AnimatorProxy extends Animation {
         }
     }
 
-    private void transformMatrix(Matrix m) {
-        final View view = mView;
+    private void transformMatrix(Matrix m, View view) {
         final float w = view.getWidth();
         final float h = view.getHeight();
 
@@ -291,7 +326,10 @@ public final class AnimatorProxy extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        t.setAlpha(mAlpha);
-        transformMatrix(t.getMatrix());
+        View view = mView.get();
+        if (view != null) {
+            t.setAlpha(mAlpha);
+            transformMatrix(t.getMatrix(), view);
+        }
     }
 }
