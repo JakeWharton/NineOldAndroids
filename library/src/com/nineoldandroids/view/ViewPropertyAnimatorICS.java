@@ -1,201 +1,298 @@
 package com.nineoldandroids.view;
 
+import java.lang.ref.WeakReference;
+
 import android.view.View;
 import android.view.animation.Interpolator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 
 class ViewPropertyAnimatorICS extends ViewPropertyAnimator {
-    private final android.view.ViewPropertyAnimator mNative;
+	/**
+	 * A value to be returned when the WeakReference holding the native implementation
+	 * returns <code>null</code>
+	 */
+	private final static long RETURN_WHEN_NULL = -1L;
+
+	/**
+	 * A WeakReference holding the native implementation of ViewPropertyAnimator
+	 */
+    private final WeakReference<android.view.ViewPropertyAnimator> mNative;
 
     ViewPropertyAnimatorICS(View view) {
-        mNative = view.animate();
+        mNative = new WeakReference<android.view.ViewPropertyAnimator>(view.animate());
     }
 
     @Override
     public ViewPropertyAnimator setDuration(long duration) {
-        mNative.setDuration(duration);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.setDuration(duration);
+    	}
         return this;
     }
 
     @Override
     public long getDuration() {
-        return mNative.getDuration();
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		return n.getDuration();
+    	}
+    	return RETURN_WHEN_NULL;
     }
 
     @Override
     public ViewPropertyAnimator setStartDelay(long startDelay) {
-        mNative.setStartDelay(startDelay);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.setStartDelay(startDelay);
+    	}
         return this;
     }
 
     @Override
     public long getStartDelay() {
-        return mNative.getStartDelay();
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		return n.getStartDelay();
+    	}
+        return RETURN_WHEN_NULL;
     }
 
     @Override
     public ViewPropertyAnimator setInterpolator(Interpolator interpolator) {
-        mNative.setInterpolator(interpolator);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.setInterpolator(interpolator);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator setListener(final AnimatorListener listener) {
-        if (listener == null) {
-            mNative.setListener(null);
-        } else {
-            mNative.setListener(new android.animation.Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(android.animation.Animator animation) {
-                    listener.onAnimationStart(null);
-                }
-
-                @Override
-                public void onAnimationRepeat(android.animation.Animator animation) {
-                    listener.onAnimationRepeat(null);
-                }
-
-                @Override
-                public void onAnimationEnd(android.animation.Animator animation) {
-                    listener.onAnimationEnd(null);
-                }
-
-                @Override
-                public void onAnimationCancel(android.animation.Animator animation) {
-                    listener.onAnimationCancel(null);
-                }
-            });
-        }
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+		    if (listener == null) {        	
+		        n.setListener(null);
+		    } else {
+		        n.setListener(new android.animation.Animator.AnimatorListener() {
+		            @Override
+		            public void onAnimationStart(android.animation.Animator animation) {
+		                listener.onAnimationStart(null);
+		            }
+		
+		            @Override
+		            public void onAnimationRepeat(android.animation.Animator animation) {
+		                listener.onAnimationRepeat(null);
+		            }
+		
+		            @Override
+		            public void onAnimationEnd(android.animation.Animator animation) {
+		                listener.onAnimationEnd(null);
+		            }
+		
+		            @Override
+		            public void onAnimationCancel(android.animation.Animator animation) {
+		                listener.onAnimationCancel(null);
+		            }
+		        });
+		    }
+    	}
         return this;
     }
 
     @Override
     public void start() {
-        mNative.start();
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.start();
+    	}
     }
 
     @Override
     public void cancel() {
-        mNative.cancel();
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.cancel();
+    	}
     }
 
     @Override
     public ViewPropertyAnimator x(float value) {
-        mNative.x(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.x(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator xBy(float value) {
-        mNative.xBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.xBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator y(float value) {
-        mNative.y(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.y(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator yBy(float value) {
-        mNative.yBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.yBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator rotation(float value) {
-        mNative.rotation(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.rotation(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator rotationBy(float value) {
-        mNative.rotationBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.rotationBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator rotationX(float value) {
-        mNative.rotationX(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.rotationX(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator rotationXBy(float value) {
-        mNative.rotationXBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.rotationXBy(value);
+    	}    	
         return this;
     }
 
     @Override
     public ViewPropertyAnimator rotationY(float value) {
-        mNative.rotationY(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.rotationY(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator rotationYBy(float value) {
-        mNative.rotationYBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.rotationYBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator translationX(float value) {
-        mNative.translationX(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.translationX(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator translationXBy(float value) {
-        mNative.translationXBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.translationXBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator translationY(float value) {
-        mNative.translationY(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.translationY(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator translationYBy(float value) {
-        mNative.translationYBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.translationYBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator scaleX(float value) {
-        mNative.scaleX(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.scaleX(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator scaleXBy(float value) {
-        mNative.scaleXBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.scaleXBy(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator scaleY(float value) {
-        mNative.scaleY(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.scaleY(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator scaleYBy(float value) {
-        mNative.scaleYBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.scaleYBy(value);    		
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator alpha(float value) {
-        mNative.alpha(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.alpha(value);
+    	}
         return this;
     }
 
     @Override
     public ViewPropertyAnimator alphaBy(float value) {
-        mNative.alphaBy(value);
+    	android.view.ViewPropertyAnimator n = mNative.get();
+    	if (n != null) {
+    		n.alphaBy(value);
+    	}
         return this;
     }
 }
