@@ -69,10 +69,6 @@ public abstract class ViewPropertyAnimator {
         }
         return animator;
     }
-    
-    public static void unlink(View view) {
-    	ANIMATORS.remove(view);
-    }
 
 
     /**
