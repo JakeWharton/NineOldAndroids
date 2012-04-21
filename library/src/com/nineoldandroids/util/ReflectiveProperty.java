@@ -50,12 +50,18 @@ class ReflectiveProperty<T, V> extends Property<T, V> {
         String capitalizedName = firstLetter + theRest;
         String getterName = PREFIX_GET + capitalizedName;
         try {
-            mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
+            // mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
+            // The native implementation uses JNI to do reflection, which allows access to private methods.
+            mGetter = propertyHolder.getDeclaredMethod(getterName, (Class<?>[])null);
+            mGetter.setAccessible(true);
         } catch (NoSuchMethodException e) {
             // getName() not available - try isName() instead
             getterName = PREFIX_IS + capitalizedName;
             try {
-                mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
+                // mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
+                // The native implementation uses JNI to do reflection, which allows access to private methods.
+                mGetter = propertyHolder.getDeclaredMethod(getterName, (Class<?>[])null);
+                mGetter.setAccessible(true);
             } catch (NoSuchMethodException e1) {
                 // Try public field instead
                 try {
@@ -81,7 +87,10 @@ class ReflectiveProperty<T, V> extends Property<T, V> {
         }
         String setterName = PREFIX_SET + capitalizedName;
         try {
-            mSetter = propertyHolder.getMethod(setterName, getterType);
+            // mSetter = propertyHolder.getMethod(setterName, getterType);
+            // The native implementation uses JNI to do reflection, which allows access to private methods.
+            mSetter = propertyHolder.getDeclaredMethod(setterName, getterType);
+            mSetter.setAccessible(true);
         } catch (NoSuchMethodException ignored) {
             // Okay to not have a setter - just a readonly property
         }
