@@ -383,7 +383,10 @@ public class PropertyValuesHolder implements Cloneable {
         Class args[] = null;
         if (valueType == null) {
             try {
-                returnVal = targetClass.getMethod(methodName, args);
+                // returnVal = targetClass.getMethod(methodName, args);
+                // The native implementation uses JNI to do reflection, which allows access to private methods.
+                returnVal = targetClass.getDeclaredMethod(methodName, args);
+                returnVal.setAccessible(true);
             } catch (NoSuchMethodException e) {
                 Log.e("PropertyValuesHolder",
                         "Couldn't find no-arg method for property " + mPropertyName + ": " + e);
@@ -404,7 +407,10 @@ public class PropertyValuesHolder implements Cloneable {
             for (Class typeVariant : typeVariants) {
                 args[0] = typeVariant;
                 try {
-                    returnVal = targetClass.getMethod(methodName, args);
+                    // returnVal = targetClass.getMethod(methodName, args);
+                    // The native implementation uses JNI to do reflection, which allows access to private methods.
+                    returnVal = targetClass.getDeclaredMethod(methodName, args);
+                    returnVal.setAccessible(true);
                     // change the value type to suit
                     mValueType = typeVariant;
                     return returnVal;
