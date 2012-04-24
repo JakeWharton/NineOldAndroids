@@ -173,7 +173,7 @@ public final class AnimatorProxy extends Animation {
     public void setScrollY(int value) {
         View view = mView.get();
         if (view != null) {
-            view.scrollTo(view.getScrollY(), value);
+            view.scrollTo(view.getScrollX(), value);
         }
     }
 
