@@ -145,7 +145,7 @@ public final class AnimatorProxy extends Animation {
         return mView.getScrollY();
     }
     public void setScrollY(int value) {
-        mView.scrollTo(mView.getScrollY(), value);
+        mView.scrollTo(mView.getScrollX(), value);
     }
     public float getTranslationX() {
         return mTranslationX;
