@@ -16,6 +16,7 @@
 
 package com.nineoldandroids.view;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -33,10 +34,10 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
     private final AnimatorProxy mProxy;
 
     /**
-     * The View whose properties are being animated by this class. This is set at
-     * construction time.
+     * A WeakReference holding the View whose properties are being animated by this class. This is
+     * set at construction time.
      */
-    private final View mView;
+    private final WeakReference<View> mView;
 
     /**
      * The duration of the underlying Animator object. By default, we don't set the duration
@@ -209,7 +210,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
      * @param view The View associated with this ViewPropertyAnimator
      */
     ViewPropertyAnimatorPreHC(View view) {
-        mView = view;
+        mView = new WeakReference<View>(view);
         mProxy = AnimatorProxy.wrap(view);
     }
 
@@ -300,7 +301,10 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             }
         }
         mPendingAnimations.clear();
-        mView.removeCallbacks(mAnimationStarter);
+        View v = mView.get();
+        if (v != null) {
+        	v.removeCallbacks(mAnimationStarter);
+        }
     }
 
     @Override
@@ -519,8 +523,11 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
 
         NameValuesHolder nameValuePair = new NameValuesHolder(constantName, startValue, byValue);
         mPendingAnimations.add(nameValuePair);
-        mView.removeCallbacks(mAnimationStarter);
-        mView.post(mAnimationStarter);
+        View v = mView.get();
+        if (v != null) {
+        	v.removeCallbacks(mAnimationStarter);
+        	v.post(mAnimationStarter);
+        }
     }
 
     /**
@@ -639,7 +646,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         public void onAnimationCancel(Animator animation) {
             if (mListener != null) {
                 mListener.onAnimationCancel(animation);
-            }
+            }        
         }
 
         @Override
@@ -654,7 +661,13 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             if (mListener != null) {
                 mListener.onAnimationEnd(animation);
             }
-            mAnimatorMap.remove(animation);
+            mAnimatorMap.remove(animation);            
+            // If the map is empty, it means all animation are done or canceled, so the listener
+            // isn't needed anymore. Not nulling it would cause it to leak any objects used in
+            // its implementation
+            if (mAnimatorMap.isEmpty()) {
+                mListener = null;
+            }
         }
 
         /**
@@ -678,7 +691,10 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             PropertyBundle propertyBundle = mAnimatorMap.get(animation);
             int propertyMask = propertyBundle.mPropertyMask;
             if ((propertyMask & TRANSFORM_MASK) != 0) {
-                mView.invalidate(/*false*/);
+                View v = mView.get();
+                if (v != null) {
+                	v.invalidate(/*false*/);
+                }
             }
             ArrayList<NameValuesHolder> valueList = propertyBundle.mNameValuesHolder;
             if (valueList != null) {
@@ -699,7 +715,10 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             }*/
             // invalidate(false) in all cases except if alphaHandled gets set to true
             // via the call to setAlphaNoInvalidation(), above
-            mView.invalidate(/*alphaHandled*/);
+            View v = mView.get();
+            if (v != null) {
+            	v.invalidate(/*alphaHandled*/);
+            }
         }
     }
 }
