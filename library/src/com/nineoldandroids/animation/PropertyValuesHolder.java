@@ -383,13 +383,18 @@ public class PropertyValuesHolder implements Cloneable {
         Class args[] = null;
         if (valueType == null) {
             try {
-                // returnVal = targetClass.getMethod(methodName, args);
-                // The native implementation uses JNI to do reflection, which allows access to private methods.
-                returnVal = targetClass.getDeclaredMethod(methodName, args);
-                returnVal.setAccessible(true);
+                returnVal = targetClass.getMethod(methodName, args);
             } catch (NoSuchMethodException e) {
-                Log.e("PropertyValuesHolder",
-                        "Couldn't find no-arg method for property " + mPropertyName + ": " + e);
+                /* The native implementation uses JNI to do reflection, which allows access to private methods.
+                 * getDeclaredMethod(..) does not find superclass methods, so it's implemented as a fallback.
+                 */
+                try {
+                    returnVal = targetClass.getDeclaredMethod(methodName, args);
+                    returnVal.setAccessible(true);
+                } catch (NoSuchMethodException e2) {
+                    Log.e("PropertyValuesHolder",
+                            "Couldn't find no-arg method for property " + mPropertyName + ": " + e);
+                }
             }
         } else {
             args = new Class[1];
@@ -407,15 +412,23 @@ public class PropertyValuesHolder implements Cloneable {
             for (Class typeVariant : typeVariants) {
                 args[0] = typeVariant;
                 try {
-                    // returnVal = targetClass.getMethod(methodName, args);
-                    // The native implementation uses JNI to do reflection, which allows access to private methods.
-                    returnVal = targetClass.getDeclaredMethod(methodName, args);
-                    returnVal.setAccessible(true);
+                    returnVal = targetClass.getMethod(methodName, args);
                     // change the value type to suit
                     mValueType = typeVariant;
                     return returnVal;
                 } catch (NoSuchMethodException e) {
-                    // Swallow the error and keep trying other variants
+                    /* The native implementation uses JNI to do reflection, which allows access to private methods.
+                     * getDeclaredMethod(..) does not find superclass methods, so it's implemented as a fallback.
+                     */
+                    try {
+                        returnVal = targetClass.getDeclaredMethod(methodName, args);
+                        returnVal.setAccessible(true);
+                        // change the value type to suit
+                        mValueType = typeVariant;
+                        return returnVal;
+                    } catch (NoSuchMethodException e2) {
+                        // Swallow the error and keep trying other variants
+                    }
                 }
             }
             // If we got here, then no appropriate function was found
