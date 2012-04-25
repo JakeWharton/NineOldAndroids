@@ -50,32 +50,42 @@ class ReflectiveProperty<T, V> extends Property<T, V> {
         String capitalizedName = firstLetter + theRest;
         String getterName = PREFIX_GET + capitalizedName;
         try {
-            // mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
-            // The native implementation uses JNI to do reflection, which allows access to private methods.
-            mGetter = propertyHolder.getDeclaredMethod(getterName, (Class<?>[])null);
-            mGetter.setAccessible(true);
+            mGetter = propertyHolder.getMethod(getterName, (Class<?>[]) null);
         } catch (NoSuchMethodException e) {
-            // getName() not available - try isName() instead
-            getterName = PREFIX_IS + capitalizedName;
             try {
-                // mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
-                // The native implementation uses JNI to do reflection, which allows access to private methods.
-                mGetter = propertyHolder.getDeclaredMethod(getterName, (Class<?>[])null);
+                /* The native implementation uses JNI to do reflection, which allows access to private methods.
+                 * getDeclaredMethod(..) does not find superclass methods, so it's implemented as a fallback.
+                 */
+                mGetter = propertyHolder.getDeclaredMethod(getterName, (Class<?>[]) null);
                 mGetter.setAccessible(true);
-            } catch (NoSuchMethodException e1) {
-                // Try public field instead
+            } catch (NoSuchMethodException e2) {
+                // getName() not available - try isName() instead
+                getterName = PREFIX_IS + capitalizedName;
                 try {
-                    mField = propertyHolder.getField(name);
-                    Class fieldType = mField.getType();
-                    if (!typesMatch(valueType, fieldType)) {
-                        throw new NoSuchPropertyException("Underlying type (" + fieldType + ") " +
-                                "does not match Property type (" + valueType + ")");
+                    mGetter = propertyHolder.getMethod(getterName, (Class<?>[]) null);
+                } catch (NoSuchMethodException e3) {
+                    try {
+                        /* The native implementation uses JNI to do reflection, which allows access to private methods.
+                         * getDeclaredMethod(..) does not find superclass methods, so it's implemented as a fallback.
+                         */
+                        mGetter = propertyHolder.getDeclaredMethod(getterName, (Class<?>[]) null);
+                        mGetter.setAccessible(true);
+                    } catch (NoSuchMethodException e4) {
+                        // Try public field instead
+                        try {
+                            mField = propertyHolder.getField(name);
+                            Class fieldType = mField.getType();
+                            if (!typesMatch(valueType, fieldType)) {
+                                throw new NoSuchPropertyException("Underlying type (" + fieldType + ") " +
+                                        "does not match Property type (" + valueType + ")");
+                            }
+                            return;
+                        } catch (NoSuchFieldException e5) {
+                            // no way to access property - throw appropriate exception
+                            throw new NoSuchPropertyException("No accessor method or field found for"
+                                    + " property with name " + name);
+                        }
                     }
-                    return;
-                } catch (NoSuchFieldException e2) {
-                    // no way to access property - throw appropriate exception
-                    throw new NoSuchPropertyException("No accessor method or field found for"
-                            + " property with name " + name);
                 }
             }
         }
