@@ -16,6 +16,7 @@
 
 package com.nineoldandroids.view;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -25,11 +26,12 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 
 class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
+	
     /**
-     * The View whose properties are being animated by this class. This is set at
-     * construction time.
+     * A WeakReference holding the View whose properties are being animated by this class.
+     * This is set at construction time.
      */
-    private final View mView;
+    private final WeakReference<View> mView;
 
     /**
      * The duration of the underlying Animator object. By default, we don't set the duration
@@ -202,7 +204,7 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
      * @param view The View associated with this ViewPropertyAnimator
      */
     ViewPropertyAnimatorHC(View view) {
-        mView = view;
+        mView = new WeakReference<View>(view);
     }
 
     /**
@@ -292,7 +294,10 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
             }
         }
         mPendingAnimations.clear();
-        mView.removeCallbacks(mAnimationStarter);
+        View v = mView.get();
+        if (v != null) {
+        	v.removeCallbacks(mAnimationStarter);
+        }
     }
 
     @Override
@@ -511,8 +516,11 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
 
         NameValuesHolder nameValuePair = new NameValuesHolder(constantName, startValue, byValue);
         mPendingAnimations.add(nameValuePair);
-        mView.removeCallbacks(mAnimationStarter);
-        mView.post(mAnimationStarter);
+        View v = mView.get();
+        if (v != null) {
+        	v.removeCallbacks(mAnimationStarter);
+        	v.post(mAnimationStarter);
+        }
     }
 
     /**
@@ -525,48 +533,51 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
      */
     private void setValue(int propertyConstant, float value) {
         //final View.TransformationInfo info = mView.mTransformationInfo;
-        switch (propertyConstant) {
-            case TRANSLATION_X:
-                //info.mTranslationX = value;
-                mView.setTranslationX(value);
-                break;
-            case TRANSLATION_Y:
-                //info.mTranslationY = value;
-                mView.setTranslationY(value);
-                break;
-            case ROTATION:
-                //info.mRotation = value;
-                mView.setRotation(value);
-                break;
-            case ROTATION_X:
-                //info.mRotationX = value;
-                mView.setRotationX(value);
-                break;
-            case ROTATION_Y:
-                //info.mRotationY = value;
-                mView.setRotationY(value);
-                break;
-            case SCALE_X:
-                //info.mScaleX = value;
-                mView.setScaleX(value);
-                break;
-            case SCALE_Y:
-                //info.mScaleY = value;
-                mView.setScaleY(value);
-                break;
-            case X:
-                //info.mTranslationX = value - mView.mLeft;
-                mView.setX(value);
-                break;
-            case Y:
-                //info.mTranslationY = value - mView.mTop;
-                mView.setY(value);
-                break;
-            case ALPHA:
-                //info.mAlpha = value;
-                mView.setAlpha(value);
-                break;
-        }
+    	View v = mView.get();
+    	if (v != null) {
+	        switch (propertyConstant) {
+	            case TRANSLATION_X:
+	                //info.mTranslationX = value;
+	                v.setTranslationX(value);
+	                break;
+	            case TRANSLATION_Y:
+	                //info.mTranslationY = value;
+	                v.setTranslationY(value);
+	                break;
+	            case ROTATION:
+	                //info.mRotation = value;
+	                v.setRotation(value);
+	                break;
+	            case ROTATION_X:
+	                //info.mRotationX = value;
+	                v.setRotationX(value);
+	                break;
+	            case ROTATION_Y:
+	                //info.mRotationY = value;
+	                v.setRotationY(value);
+	                break;
+	            case SCALE_X:
+	                //info.mScaleX = value;
+	                v.setScaleX(value);
+	                break;
+	            case SCALE_Y:
+	                //info.mScaleY = value;
+	                v.setScaleY(value);
+	                break;
+	            case X:
+	                //info.mTranslationX = value - v.mLeft;
+	                v.setX(value);
+	                break;
+	            case Y:
+	                //info.mTranslationY = value - v.mTop;
+	                v.setY(value);
+	                break;
+	            case ALPHA:
+	                //info.mAlpha = value;
+	                v.setAlpha(value);
+	                break;
+	        }
+    	}
     }
 
     /**
@@ -577,38 +588,41 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
      */
     private float getValue(int propertyConstant) {
         //final View.TransformationInfo info = mView.mTransformationInfo;
-        switch (propertyConstant) {
-            case TRANSLATION_X:
-                //return info.mTranslationX;
-                return mView.getTranslationX();
-            case TRANSLATION_Y:
-                //return info.mTranslationY;
-                return mView.getTranslationY();
-            case ROTATION:
-                //return info.mRotation;
-                return mView.getRotation();
-            case ROTATION_X:
-                //return info.mRotationX;
-                return mView.getRotationX();
-            case ROTATION_Y:
-                //return info.mRotationY;
-                return mView.getRotationY();
-            case SCALE_X:
-                //return info.mScaleX;
-                return mView.getScaleX();
-            case SCALE_Y:
-                //return info.mScaleY;
-                return mView.getScaleY();
-            case X:
-                //return mView.mLeft + info.mTranslationX;
-                return mView.getX();
-            case Y:
-                //return mView.mTop + info.mTranslationY;
-                return mView.getY();
-            case ALPHA:
-                //return info.mAlpha;
-                return mView.getAlpha();
-        }
+    	View v = mView.get();
+    	if (v != null) {
+	        switch (propertyConstant) {
+	            case TRANSLATION_X:
+	                //return info.mTranslationX;
+	                return v.getTranslationX();
+	            case TRANSLATION_Y:
+	                //return info.mTranslationY;
+	                return v.getTranslationY();
+	            case ROTATION:
+	                //return info.mRotation;
+	                return v.getRotation();
+	            case ROTATION_X:
+	                //return info.mRotationX;
+	                return v.getRotationX();
+	            case ROTATION_Y:
+	                //return info.mRotationY;
+	                return v.getRotationY();
+	            case SCALE_X:
+	                //return info.mScaleX;
+	                return v.getScaleX();
+	            case SCALE_Y:
+	                //return info.mScaleY;
+	                return v.getScaleY();
+	            case X:
+	                //return v.mLeft + info.mTranslationX;
+	                return v.getX();
+	            case Y:
+	                //return v.mTop + info.mTranslationY;
+	                return v.getY();
+	            case ALPHA:
+	                //return info.mAlpha;
+	                return v.getAlpha();
+	        }
+    	}
         return 0;
     }
 
@@ -631,7 +645,7 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
         public void onAnimationCancel(Animator animation) {
             if (mListener != null) {
                 mListener.onAnimationCancel(animation);
-            }
+            }    
         }
 
         @Override
@@ -646,7 +660,13 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
             if (mListener != null) {
                 mListener.onAnimationEnd(animation);
             }
-            mAnimatorMap.remove(animation);
+            mAnimatorMap.remove(animation);            
+            // If the map is empty, it means all animation are done or canceled, so the listener
+            // isn't needed anymore. Not nulling it would cause it to leak any objects used in
+            // its implementation
+            if (mAnimatorMap.isEmpty()) {
+                mListener = null;
+            }
         }
 
         /**
@@ -670,7 +690,10 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
             PropertyBundle propertyBundle = mAnimatorMap.get(animation);
             int propertyMask = propertyBundle.mPropertyMask;
             if ((propertyMask & TRANSFORM_MASK) != 0) {
-                mView.invalidate(/*false*/);
+                View v = mView.get();
+                if (v != null) {
+                	v.invalidate(/*false*/);
+                }
             }
             ArrayList<NameValuesHolder> valueList = propertyBundle.mNameValuesHolder;
             if (valueList != null) {
@@ -691,7 +714,10 @@ class ViewPropertyAnimatorHC extends ViewPropertyAnimator {
             }*/
             // invalidate(false) in all cases except if alphaHandled gets set to true
             // via the call to setAlphaNoInvalidation(), above
-            mView.invalidate(/*alphaHandled*/);
+            View v = mView.get();
+            if (v != null) {
+            	v.invalidate(/*alphaHandled*/);
+            }
         }
     }
 }
