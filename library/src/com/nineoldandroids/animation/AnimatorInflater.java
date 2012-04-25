@@ -51,23 +51,23 @@ public class AnimatorInflater {
     private static final int PropertyAnimator_propertyName = 0;
 
     private static final int[] Animator = new int[] {
-        /* 0 */ android.R.attr.duration,
-        /* 1 */ android.R.attr.startOffset,
-        /* 2 */ android.R.attr.valueType,
-        /* 3 */ android.R.attr.valueFrom,
-        /* 4 */ android.R.attr.valueTo,
-        /* 5 */ android.R.attr.repeatCount,
-        /* 6 */ android.R.attr.repeatMode,
-        /* 7 */ android.R.attr.interpolator,
+        /* 0 */ android.R.attr.interpolator,
+        /* 1 */ android.R.attr.duration,
+        /* 2 */ android.R.attr.startOffset,
+        /* 3 */ android.R.attr.repeatCount,
+        /* 4 */ android.R.attr.repeatMode,
+        /* 5 */ android.R.attr.valueFrom,
+        /* 6 */ android.R.attr.valueTo,
+        /* 7 */ android.R.attr.valueType,
     };
-    private static final int Animator_duration = 0;
-    private static final int Animator_startOffset = 1;
-    private static final int Animator_valueType = 2;
-    private static final int Animator_valueFrom = 3;
-    private static final int Animator_valueTo = 4;
-    private static final int Animator_repeatCount = 5;
-    private static final int Animator_repeatMode = 6;
-    private static final int Animator_interpolator = 7;
+    private static final int Animator_interpolator = 0;
+    private static final int Animator_duration = 1;
+    private static final int Animator_startOffset = 2;
+    private static final int Animator_repeatCount = 3;
+    private static final int Animator_repeatMode = 4;
+    private static final int Animator_valueFrom = 5;
+    private static final int Animator_valueTo = 6;
+    private static final int Animator_valueType = 7;
 
     /**
      * These flags are used when parsing AnimatorSet objects
