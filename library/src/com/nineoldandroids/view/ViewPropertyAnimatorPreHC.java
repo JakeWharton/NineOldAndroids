@@ -303,7 +303,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         mPendingAnimations.clear();
         View v = mView.get();
         if (v != null) {
-        	v.removeCallbacks(mAnimationStarter);
+            v.removeCallbacks(mAnimationStarter);
         }
     }
 
@@ -525,8 +525,8 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         mPendingAnimations.add(nameValuePair);
         View v = mView.get();
         if (v != null) {
-        	v.removeCallbacks(mAnimationStarter);
-        	v.post(mAnimationStarter);
+            v.removeCallbacks(mAnimationStarter);
+            v.post(mAnimationStarter);
         }
     }
 
@@ -646,7 +646,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         public void onAnimationCancel(Animator animation) {
             if (mListener != null) {
                 mListener.onAnimationCancel(animation);
-            }        
+            }
         }
 
         @Override
@@ -661,7 +661,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             if (mListener != null) {
                 mListener.onAnimationEnd(animation);
             }
-            mAnimatorMap.remove(animation);            
+            mAnimatorMap.remove(animation);
             // If the map is empty, it means all animation are done or canceled, so the listener
             // isn't needed anymore. Not nulling it would cause it to leak any objects used in
             // its implementation
@@ -693,7 +693,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             if ((propertyMask & TRANSFORM_MASK) != 0) {
                 View v = mView.get();
                 if (v != null) {
-                	v.invalidate(/*false*/);
+                    v.invalidate(/*false*/);
                 }
             }
             ArrayList<NameValuesHolder> valueList = propertyBundle.mNameValuesHolder;
@@ -717,7 +717,7 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             // via the call to setAlphaNoInvalidation(), above
             View v = mView.get();
             if (v != null) {
-            	v.invalidate(/*alphaHandled*/);
+                v.invalidate(/*alphaHandled*/);
             }
         }
     }
