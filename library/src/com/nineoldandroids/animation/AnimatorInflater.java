@@ -149,8 +149,11 @@ public class AnimatorInflater {
                 anim = new AnimatorSet();
                 TypedArray a = c.obtainStyledAttributes(attrs,
                         /*com.android.internal.R.styleable.*/AnimatorSet);
-                int ordering = a.getInt(/*com.android.internal.R.styleable.*/AnimatorSet_ordering,
-                        TOGETHER);
+
+                TypedValue orderingValue = new TypedValue();
+                a.getValue(/*com.android.internal.R.styleable.*/AnimatorSet_ordering, orderingValue);
+                int ordering = orderingValue.type == TypedValue.TYPE_INT_DEC ? orderingValue.data : TOGETHER;
+
                 createAnimatorFromXml(c, parser, attrs, (AnimatorSet) anim,  ordering);
                 a.recycle();
             } else {

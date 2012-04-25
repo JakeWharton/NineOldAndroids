@@ -11,6 +11,7 @@ gen
 .idea
 *.iml
 *.ipl
+classes
 
 #Maven
 target
