@@ -1,13 +1,19 @@
 Change Log
 ==========
 
-Version 2.3.0 *(In Development*)
---------------------------------
+Version 2.3.0 *(2012-04-25)*
+----------------------------
 
  * Intelligent invalidation of parent view will only cause a redraw of the
    parts that have changed. *(Thanks to Florent Pillet)*
  * Maintain weak reference to animated view so that we do not prevent it from
    being garbage collected.
+ * Ensure animation remains possible if view was removed from its parent at
+   some point.
+ * Fix memory leaks that may occur in some situations keeping hard references
+   to views after they were no longer needed.
+ * Allow reflection on private methods to mirror the JNI behavior.
+ * Avoid type conflict on some devices when loading animations from XML.
 
 
 Version 2.2.0 *(2012-01-30)*
