@@ -152,11 +152,15 @@
 				<div class="row">
 					<div class="span12"><h2>Download</h2></div>
 					<div class="span8">
-						<p class="h1"><strong>Version 2.2.0</strong> &mdash; 2012-01-30</p>
+						<p class="h1"><strong>Version 2.3.0</strong> &mdash; 2012-04-25</p>
 						<p><a href="https://github.com/JakeWharton/NineOldAndroids/zipball/master" class="btn small success">Download ZIP</a> <a href="https://github.com/JakeWharton/NineOldAndroids/tarball/master" class="btn small success">Download TGZ</a></p>
 						<p class="h2">Change Log</p>
 						<ul>
-							<li>Provide a feature-complete implementation of <code>ViewPropertyAnimator</code> for Honeycomb which previously did not offer the full API of the Android 4.0+ version.</li>
+							<li>Intelligent invalidation of parent view will only cause a redraw of the parts that have changed.</li>
+							<li>Maintain weak reference to animated view so that we do not prevent it from being garbage collected.</li>
+							<li>Ensure animation remains possible if view was removed from its parent at some point.</li>
+							<li>Allow reflection on private methods to mirror the JNI behavior.</li>
+							<li>Avoid type conflict on some devices when loading animations from XML.</li>
 						</ul>
 						<p>Looking for an older version? Check <a href="https://github.com/JakeWharton/NineOldAndroids/tags">here</a>.</p>
 					</div>
