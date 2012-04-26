@@ -32,7 +32,8 @@ public final class AnimatorProxy extends Animation {
      */
     public static AnimatorProxy wrap(View view) {
         AnimatorProxy proxy = PROXIES.get(view);
-        if (proxy == null) {
+        // This checks if the proxy already exists and whether it still is the animation of the given view
+        if (proxy == null || proxy != view.getAnimation()) {
             proxy = new AnimatorProxy(view);
             PROXIES.put(view, proxy);
         }
