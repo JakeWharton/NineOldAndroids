@@ -295,15 +295,15 @@ public final class AnimatorProxy extends Animation {
     private void transformMatrix(Matrix m, View view) {
         final float w = view.getWidth();
         final float h = view.getHeight();
+        final boolean hasPivot = mHasPivot;
+        final float pX = hasPivot ? mPivotX : w / 2f;
+        final float pY = hasPivot ? mPivotY : h / 2f;
 
         final float rX = mRotationX;
         final float rY = mRotationY;
         final float rZ = mRotationZ;
         if ((rX != 0) || (rY != 0) || (rZ != 0)) {
             final Camera camera = mCamera;
-            final boolean hasPivot = mHasPivot;
-            final float pX = hasPivot ? mPivotX : w / 2f;
-            final float pY = hasPivot ? mPivotY : h / 2f;
             camera.save();
             camera.rotateX(rX);
             camera.rotateY(rY);
@@ -317,11 +317,10 @@ public final class AnimatorProxy extends Animation {
         final float sX = mScaleX;
         final float sY = mScaleY;
         if ((sX != 1.0f) || (sY != 1.0f)) {
-            final float deltaSX = ((sX * w) - w) / 2f;
-            final float deltaSY = ((sY * h) - h) / 2f;
             m.postScale(sX, sY);
-            m.postTranslate(-deltaSX, -deltaSY);
+            m.postTranslate(-pX, -pY);
         }
+
         m.postTranslate(mTranslationX, mTranslationY);
     }
 
