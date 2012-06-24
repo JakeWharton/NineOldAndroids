@@ -226,22 +226,6 @@ public final class AnimatorProxy extends Animation {
         }
     }
 
-    public float getScale() {
-        // this is a pseudo-property for the frequent case where
-        // scaleX and scaleY are being updated synchronously
-        return Math.max(mScaleX, mScaleY);
-    }
-    public void setScale(float scale) {
-        // this is a pseudo-property for the frequent case where
-        // scaleX and scaleY are being updated synchronously
-        if (mScaleX != scale || mScaleY != scale) {
-            prepareForUpdate();
-            mScaleX = scale;
-            mScaleY = scale;
-            invalidateAfterUpdate();
-        }
-    }
-
     private void prepareForUpdate() {
         View view = mView.get();
         if (view != null) {
