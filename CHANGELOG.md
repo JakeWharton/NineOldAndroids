@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+Version 2.3.1 *(In Development)*
+--------------------------------
+
+ * Add `ViewHelper` class which will delegate new `View` property calls to
+   their native counterparts when available.
+ * Do not invalidate parent if view is not attached to anything.
+
+
 Version 2.3.0 *(2012-04-25)*
 ----------------------------
 
