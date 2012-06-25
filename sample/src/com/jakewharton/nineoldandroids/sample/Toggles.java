@@ -64,7 +64,7 @@ public class Toggles extends Activity {
                 ObjectAnimator.ofFloat(target, "rotation", 0, 180, 0).setDuration(duration).start();
             }
         });
-        findViewById(R.id.pivot_corner).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.pivot_zero_zero).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewHelper.setPivotX(target, 0);
@@ -76,6 +76,13 @@ public class Toggles extends Activity {
             public void onClick(View v) {
                 ViewHelper.setPivotX(target, target.getWidth() / 2f);
                 ViewHelper.setPivotY(target, target.getHeight() / 2f);
+            }
+        });
+        findViewById(R.id.pivot_width_height).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewHelper.setPivotX(target, target.getWidth());
+                ViewHelper.setPivotY(target, target.getHeight());
             }
         });
     }

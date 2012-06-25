@@ -67,17 +67,23 @@
             android:layout_width="fill_parent"
             android:orientation="horizontal">
         <Button
-                android:id="@+id/pivot_corner"
+                android:id="@+id/pivot_zero_zero"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="Pivot Corner"/>
+                android:text="Pivot (0,0)"/>
         <Button
                 android:id="@+id/pivot_center"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="Pivot Center"/>
+        <Button
+                android:id="@+id/pivot_width_height"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Pivot (w,h)"/>
     </LinearLayout>
     <LinearLayout
             android:layout_height="0dp"

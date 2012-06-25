@@ -303,7 +303,9 @@ public final class AnimatorProxy extends Animation {
         final float sY = mScaleY;
         if ((sX != 1.0f) || (sY != 1.0f)) {
             m.postScale(sX, sY);
-            m.postTranslate(-pX, -pY);
+            final float sPX = -(pX / w) * ((sX * w) - w);
+            final float sPY = -(pY / h) * ((sY * h) - h);
+            m.postTranslate(sPX, sPY);
         }
 
         m.postTranslate(mTranslationX, mTranslationY);
