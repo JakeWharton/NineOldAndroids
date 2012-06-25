@@ -9,237 +9,283 @@ public final class ViewHelper {
     private ViewHelper() {}
 
     public static float getAlpha(View view) {
-        return NEEDS_PROXY ? wrap(view).getAlpha() : GetAlpha.invoke(view);
-    }
-
-    private static final class GetAlpha {
-        static float invoke(View view) {
-            return view.getAlpha();
-        }
+        return NEEDS_PROXY ? wrap(view).getAlpha() : Honeycomb.getAlpha(view);
     }
 
     public static void setAlpha(View view, float alpha) {
         if (NEEDS_PROXY) {
             wrap(view).setAlpha(alpha);
         } else {
-            SetAlpha.invoke(view, alpha);
-        }
-    }
-
-    private static final class SetAlpha {
-        static void invoke(View view, float alpha) {
-            view.setAlpha(alpha);
+            Honeycomb.setAlpha(view, alpha);
         }
     }
 
     public static float getPivotX(View view) {
-        return NEEDS_PROXY ? wrap(view).getPivotX() : GetPivotX.invoke(view);
-    }
-
-    private static final class GetPivotX {
-        static float invoke(View view) {
-            return view.getPivotX();
-        }
+        return NEEDS_PROXY ? wrap(view).getPivotX() : Honeycomb.getPivotX(view);
     }
 
     public static void setPivotX(View view, float pivotX) {
         if (NEEDS_PROXY) {
             wrap(view).setPivotX(pivotX);
         } else {
-            SetPivotX.invoke(view, pivotX);
-        }
-    }
-
-    private static final class SetPivotX {
-        static void invoke(View view, float pivotX) {
-            view.setPivotX(pivotX);
+            Honeycomb.setPivotX(view, pivotX);
         }
     }
 
     public static float getPivotY(View view) {
-        return NEEDS_PROXY ? wrap(view).getPivotY() : GetPivotY.invoke(view);
-    }
-
-    private static final class GetPivotY {
-        static float invoke(View view) {
-            return view.getPivotY();
-        }
+        return NEEDS_PROXY ? wrap(view).getPivotY() : Honeycomb.getPivotY(view);
     }
 
     public static void setPivotY(View view, float pivotY) {
         if (NEEDS_PROXY) {
             wrap(view).setPivotY(pivotY);
         } else {
-            SetPivotY.invoke(view, pivotY);
-        }
-    }
-
-    private static final class SetPivotY {
-        static void invoke(View view, float pivotY) {
-            view.setPivotY(pivotY);
+            Honeycomb.setPivotY(view, pivotY);
         }
     }
 
     public static float getRotation(View view) {
-        return NEEDS_PROXY ? wrap(view).getRotation() : GetRotation.invoke(view);
-    }
-
-    private static final class GetRotation {
-        static float invoke(View view) {
-            return view.getRotation();
-        }
+        return NEEDS_PROXY ? wrap(view).getRotation() : Honeycomb.getRotation(view);
     }
 
     public static void setRotation(View view, float rotation) {
         if (NEEDS_PROXY) {
             wrap(view).setRotation(rotation);
         } else {
-            SetRotation.invoke(view, rotation);
+            Honeycomb.setRotation(view, rotation);
         }
     }
 
-    private static final class SetRotation {
-        static void invoke(View view, float rotation) {
-            view.setRotation(rotation);
-        }
+    public static float getRotationX(View view) {
+        return NEEDS_PROXY ? wrap(view).getRotationX() : Honeycomb.getRotationX(view);
     }
 
     public static void setRotationX(View view, float rotationX) {
         if (NEEDS_PROXY) {
             wrap(view).setRotationX(rotationX);
         } else {
-            SetRotationX.invoke(view, rotationX);
+            Honeycomb.setRotationX(view, rotationX);
         }
     }
 
-    private static final class SetRotationX {
-        static void invoke(View view, float rotationX) {
-            view.setRotationX(rotationX);
-        }
+    public static float getRotationY(View view) {
+        return NEEDS_PROXY ? wrap(view).getRotationY() : Honeycomb.getRotationY(view);
     }
 
     public static void setRotationY(View view, float rotationY) {
         if (NEEDS_PROXY) {
             wrap(view).setRotationY(rotationY);
         } else {
-            SetRotationY.invoke(view, rotationY);
+            Honeycomb.setRotationY(view, rotationY);
         }
     }
 
-    private static final class SetRotationY {
-        static void invoke(View view, float rotationY) {
-            view.setRotationY(rotationY);
-        }
+    public static float getScaleX(View view) {
+        return NEEDS_PROXY ? wrap(view).getScaleX() : Honeycomb.getScaleX(view);
     }
 
     public static void setScaleX(View view, float scaleX) {
         if (NEEDS_PROXY) {
             wrap(view).setScaleX(scaleX);
         } else {
-            SetScaleX.invoke(view, scaleX);
+            Honeycomb.setScaleX(view, scaleX);
         }
     }
 
-    private static final class SetScaleX {
-        static void invoke(View view, float scaleX) {
-            view.setScaleX(scaleX);
-        }
+    public static float getScaleY(View view) {
+        return NEEDS_PROXY ? wrap(view).getScaleY() : Honeycomb.getScaleY(view);
     }
 
     public static void setScaleY(View view, float scaleY) {
         if (NEEDS_PROXY) {
             wrap(view).setScaleY(scaleY);
         } else {
-            SetScaleY.invoke(view, scaleY);
+            Honeycomb.setScaleY(view, scaleY);
         }
     }
 
-    private static final class SetScaleY {
-        static void invoke(View view, float scaleY) {
-            view.setScaleY(scaleY);
-        }
+    public static float getScrollX(View view) {
+        return NEEDS_PROXY ? wrap(view).getScrollX() : Honeycomb.getScrollX(view);
     }
 
     public static void setScrollX(View view, int scrollX) {
         if (NEEDS_PROXY) {
             wrap(view).setScrollX(scrollX);
         } else {
-            SetScrollX.invoke(view, scrollX);
+            Honeycomb.setScrollX(view, scrollX);
         }
     }
 
-    private static final class SetScrollX {
-        static void invoke(View view, int scrollX) {
-            view.setScrollX(scrollX);
-        }
+    public static float getScrollY(View view) {
+        return NEEDS_PROXY ? wrap(view).getScrollY() : Honeycomb.getScrollY(view);
     }
 
     public static void setScrollY(View view, int scrollY) {
         if (NEEDS_PROXY) {
             wrap(view).setScrollY(scrollY);
         } else {
-            SetScrollY.invoke(view, scrollY);
+            Honeycomb.setScrollY(view, scrollY);
         }
     }
 
-    private static final class SetScrollY {
-        static void invoke(View view, int scrollY) {
-            view.setScrollY(scrollY);
-        }
+    public static float getTranslationX(View view) {
+        return NEEDS_PROXY ? wrap(view).getTranslationX() : Honeycomb.getTranslationX(view);
     }
 
     public static void setTranslationX(View view, float translationX) {
         if (NEEDS_PROXY) {
             wrap(view).setTranslationX(translationX);
         } else {
-            SetTranslationX.invoke(view, translationX);
+            Honeycomb.setTranslationX(view, translationX);
         }
     }
 
-    private static final class SetTranslationX {
-        static void invoke(View view, float translationX) {
-            view.setTranslationX(translationX);
-        }
+    public static float getTranslationY(View view) {
+        return NEEDS_PROXY ? wrap(view).getTranslationY() : Honeycomb.getTranslationY(view);
     }
 
     public static void setTranslationY(View view, float translationY) {
         if (NEEDS_PROXY) {
             wrap(view).setTranslationY(translationY);
         } else {
-            SetTranslationY.invoke(view, translationY);
+            Honeycomb.setTranslationY(view, translationY);
         }
     }
 
-    private static final class SetTranslationY {
-        static void invoke(View view, float translationY) {
-            view.setTranslationY(translationY);
-        }
+    public static float getX(View view) {
+        return NEEDS_PROXY ? wrap(view).getX() : Honeycomb.getX(view);
     }
 
     public static void setX(View view, float x) {
         if (NEEDS_PROXY) {
             wrap(view).setX(x);
         } else {
-            SetX.invoke(view, x);
+            Honeycomb.setX(view, x);
         }
     }
 
-    private static final class SetX {
-        static void invoke(View view, float x) {
-            view.setX(x);
-        }
+    public static float getY(View view) {
+        return NEEDS_PROXY ? wrap(view).getY() : Honeycomb.getY(view);
     }
 
     public static void setY(View view, float y) {
         if (NEEDS_PROXY) {
             wrap(view).setY(y);
         } else {
-            SetY.invoke(view, y);
+            Honeycomb.setY(view, y);
         }
     }
 
-    private static final class SetY {
-        static void invoke(View view, float y) {
+    private static final class Honeycomb {
+        static float getAlpha(View view) {
+            return view.getAlpha();
+        }
+
+        static void setAlpha(View view, float alpha) {
+            view.setAlpha(alpha);
+        }
+
+        static float getPivotX(View view) {
+            return view.getPivotX();
+        }
+
+        static void setPivotX(View view, float pivotX) {
+            view.setPivotX(pivotX);
+        }
+
+        static float getPivotY(View view) {
+            return view.getPivotY();
+        }
+
+        static void setPivotY(View view, float pivotY) {
+            view.setPivotY(pivotY);
+        }
+
+        static float getRotation(View view) {
+            return view.getRotation();
+        }
+
+        static void setRotation(View view, float rotation) {
+            view.setRotation(rotation);
+        }
+
+        static float getRotationX(View view) {
+            return view.getRotationX();
+        }
+
+        static void setRotationX(View view, float rotationX) {
+            view.setRotationX(rotationX);
+        }
+
+        static float getRotationY(View view) {
+            return view.getRotationY();
+        }
+
+        static void setRotationY(View view, float rotationY) {
+            view.setRotationY(rotationY);
+        }
+
+        static float getScaleX(View view) {
+            return view.getScaleX();
+        }
+
+        static void setScaleX(View view, float scaleX) {
+            view.setScaleX(scaleX);
+        }
+
+        static float getScaleY(View view) {
+            return view.getScaleY();
+        }
+
+        static void setScaleY(View view, float scaleY) {
+            view.setScaleY(scaleY);
+        }
+
+        static float getScrollX(View view) {
+            return view.getScrollX();
+        }
+
+        static void setScrollX(View view, int scrollX) {
+            view.setScrollX(scrollX);
+        }
+
+        static float getScrollY(View view) {
+            return view.getScrollY();
+        }
+
+        static void setScrollY(View view, int scrollY) {
+            view.setScrollY(scrollY);
+        }
+
+        static float getTranslationX(View view) {
+            return view.getTranslationX();
+        }
+
+        static void setTranslationX(View view, float translationX) {
+            view.setTranslationX(translationX);
+        }
+
+        static float getTranslationY(View view) {
+            return view.getTranslationY();
+        }
+
+        static void setTranslationY(View view, float translationY) {
+            view.setTranslationY(translationY);
+        }
+
+        static float getX(View view) {
+            return view.getX();
+        }
+
+        static void setX(View view, float x) {
+            view.setX(x);
+        }
+
+        static float getY(View view) {
+            return view.getY();
+        }
+
+        static void setY(View view, float y) {
             view.setY(y);
         }
     }
