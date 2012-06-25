@@ -16,7 +16,7 @@ The API is exactly the same as the [Honeycomb API][2], just change your imports
 to use `com.nineoldandroids.XXX`.
 
 Take a look at a few demos taken from the [platform ApiDemos][3] in the
-`sample/` folder. You can also try it out on the [Android Market][4].
+`sample/` folder. You can also try it out on the [Play Store][4].
 
 More information is available on [nineoldandroids.com][6].
 
@@ -34,16 +34,8 @@ a dependency:
     <dependency>
       <groupId>com.nineoldandroids</groupId>
       <artifactId>library</artifactId>
-      <version>2.3.0</version>
+      <version>2.4.0</version>
     </dependency>
-
-You must also include the following repository:
-
-    <repository>
-      <id>com.jakewharton</id>
-      <url>http://r.jakewharton.com/maven/release</url>
-    </repository>
-
 
 
 
@@ -57,7 +49,7 @@ Developed By
 License
 =======
 
-    Copyright 2011 Jake Wharton
+    Copyright 2012 Jake Wharton
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -76,6 +68,6 @@ License
  [1]: http://android-developers.blogspot.com/2011/02/animation-in-honeycomb.html
  [2]: http://developer.android.com/reference/android/view/animation/package-summary.html
  [3]: http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/animation/index.html
- [4]: https://market.android.com/details?id=com.jakewharton.nineoldandroids.sample
+ [4]: https://play.google.com/store/apps/details?id=com.jakewharton.nineoldandroids.sample
  [5]: https://github.com/JakeWharton/NineOldAndroids/downloads
  [6]: http://nineoldandroids.com

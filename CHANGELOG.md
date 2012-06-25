@@ -1,8 +1,8 @@
 Change Log
 ==========
 
-Version 2.4.0 *(In Development)*
---------------------------------
+Version 2.4.0 *(2012-06-24)*
+----------------------------
 
  * Add `ViewHelper` class which will delegate new `View` property calls to
    their native counterparts when available.
