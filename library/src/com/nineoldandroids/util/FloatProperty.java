@@ -40,7 +40,7 @@ public abstract class FloatProperty<T> extends Property<T, Float> {
 
     @Override
     final public void set(T object, Float value) {
-        setValue(object, value);
+        setValue(object, value.floatValue());
     }
 
 }
