@@ -50,7 +50,7 @@ class ReflectiveProperty<T, V> extends Property<T, V> {
         String capitalizedName = firstLetter + theRest;
         String getterName = PREFIX_GET + capitalizedName;
         try {
-            mGetter = propertyHolder.getMethod(getterName, (Class<?>[]) null);
+            mGetter = propertyHolder.getMethod(getterName, (Class<?>[])null);
         } catch (NoSuchMethodException e) {
             try {
                 /* The native implementation uses JNI to do reflection, which allows access to private methods.

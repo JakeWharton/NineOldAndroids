@@ -3,13 +3,14 @@ package com.nineoldandroids.view.animation;
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.os.Build;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-
 import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
+
+import static android.os.Build.VERSION.SDK;
+import static android.os.Build.VERSION_CODES.HONEYCOMB;
 
 /**
  * A proxy class to allow for modifying post-3.0 view properties on all pre-3.0
@@ -18,7 +19,8 @@ import java.util.WeakHashMap;
  */
 public final class AnimatorProxy extends Animation {
     /** Whether or not the current running platform needs to be proxied. */
-    public static final boolean NEEDS_PROXY = Integer.valueOf(Build.VERSION.SDK).intValue() < Build.VERSION_CODES.HONEYCOMB;
+    @SuppressWarnings("deprecation")
+    public static final boolean NEEDS_PROXY = Integer.valueOf(SDK) < HONEYCOMB;
 
     private static final WeakHashMap<View, AnimatorProxy> PROXIES =
             new WeakHashMap<View, AnimatorProxy>();

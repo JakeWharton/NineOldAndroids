@@ -1,7 +1,9 @@
 package com.nineoldandroids.view;
 
+import android.annotation.TargetApi;
 import android.view.View;
 
+import static android.os.Build.VERSION_CODES.HONEYCOMB;
 import static com.nineoldandroids.view.animation.AnimatorProxy.NEEDS_PROXY;
 import static com.nineoldandroids.view.animation.AnimatorProxy.wrap;
 
@@ -176,6 +178,7 @@ public final class ViewHelper {
         }
     }
 
+    @TargetApi(HONEYCOMB)
     private static final class Honeycomb {
         static float getAlpha(View view) {
             return view.getAlpha();

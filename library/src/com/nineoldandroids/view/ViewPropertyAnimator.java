@@ -44,6 +44,25 @@ import com.nineoldandroids.animation.Animator;
  *
  */
 public abstract class ViewPropertyAnimator {
+    /**
+     * Constants used to associate a property being requested and the mechanism used to set
+     * the property (this class calls directly into View to set the properties in question).
+     */
+    protected static final int NONE           = 0x0000;
+    protected static final int TRANSLATION_X  = 0x0001;
+    protected static final int TRANSLATION_Y  = 0x0002;
+    protected static final int SCALE_X        = 0x0004;
+    protected static final int SCALE_Y        = 0x0008;
+    protected static final int ROTATION       = 0x0010;
+    protected static final int ROTATION_X     = 0x0020;
+    protected static final int ROTATION_Y     = 0x0040;
+    protected static final int X              = 0x0080;
+    protected static final int Y              = 0x0100;
+    protected static final int ALPHA          = 0x0200;
+
+    protected static final int TRANSFORM_MASK = TRANSLATION_X | TRANSLATION_Y | SCALE_X | SCALE_Y |
+        ROTATION | ROTATION_X | ROTATION_Y | X | Y;
+
     private static final WeakHashMap<View, ViewPropertyAnimator> ANIMATORS =
             new WeakHashMap<View, ViewPropertyAnimator>(0);
 
@@ -58,7 +77,9 @@ public abstract class ViewPropertyAnimator {
         ViewPropertyAnimator animator = ANIMATORS.get(view);
         if (animator == null) {
             final int version = Integer.valueOf(Build.VERSION.SDK);
-            if (version >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (version >= Build.VERSION_CODES.JELLY_BEAN) {
+                animator = new ViewPropertyAnimatorJB(view);
+            } else if (version >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 animator = new ViewPropertyAnimatorICS(view);
             } else if (version >= Build.VERSION_CODES.HONEYCOMB) {
                 animator = new ViewPropertyAnimatorHC(view);
@@ -343,4 +364,64 @@ public abstract class ViewPropertyAnimator {
      * @return This object, allowing calls to methods in this class to be chained.
      */
     public abstract ViewPropertyAnimator alphaBy(float value);
+
+
+    /**
+     * The View associated with this ViewPropertyAnimator will have its
+     * {@link View#setLayerType(int, android.graphics.Paint) layer type} set to
+     * {@link View#LAYER_TYPE_HARDWARE} for the duration of the next animation.
+     * As stated in the documentation for {@link View#LAYER_TYPE_HARDWARE},
+     * the actual type of layer used internally depends on the runtime situation of the
+     * view. If the activity and this view are hardware-accelerated, then the layer will be
+     * accelerated as well. If the activity or the view is not accelerated, then the layer will
+     * effectively be the same as {@link View#LAYER_TYPE_SOFTWARE}.
+     *
+     * <p>This state is not persistent, either on the View or on this ViewPropertyAnimator: the
+     * layer type of the View will be restored when the animation ends to what it was when this
+     * method was called, and this setting on ViewPropertyAnimator is only valid for the next
+     * animation. Note that calling this method and then independently setting the layer type of
+     * the View (by a direct call to {@link View#setLayerType(int, android.graphics.Paint)}) will
+     * result in some inconsistency, including having the layer type restored to its pre-withLayer()
+     * value when the animation ends.</p>
+     *
+     * @see View#setLayerType(int, android.graphics.Paint)
+     * @return This object, allowing calls to methods in this class to be chained.
+     */
+    public abstract ViewPropertyAnimator withLayer();
+
+    /**
+     * Specifies an action to take place when the next animation runs. If there is a
+     * {@link #setStartDelay(long) startDelay} set on this ViewPropertyAnimator, then the
+     * action will run after that startDelay expires, when the actual animation begins.
+     * This method, along with {@link #withEndAction(Runnable)}, is intended to help facilitate
+     * choreographing ViewPropertyAnimator animations with other animations or actions
+     * in the application.
+     *
+     * @param runnable The action to run when the next animation starts.
+     * @return This object, allowing calls to methods in this class to be chained.
+     */
+    public abstract ViewPropertyAnimator withStartAction(Runnable runnable);
+
+    /**
+     * Specifies an action to take place when the next animation ends. The action is only
+     * run if the animation ends normally; if the ViewPropertyAnimator is canceled during
+     * that animation, the runnable will not run.
+     * This method, along with {@link #withStartAction(Runnable)}, is intended to help facilitate
+     * choreographing ViewPropertyAnimator animations with other animations or actions
+     * in the application.
+     *
+     * <p>For example, the following code animates a view to x=200 and then back to 0:</p>
+     * <pre>
+     *     Runnable endAction = new Runnable() {
+     *         public void run() {
+     *             view.animate().x(0);
+     *         }
+     *     };
+     *     view.animate().x(200).onEnd(endAction);
+     * </pre>
+     *
+     * @param runnable The action to run when the next animation ends.
+     * @return This object, allowing calls to methods in this class to be chained.
+     */
+    public abstract ViewPropertyAnimator withEndAction(Runnable runnable);
 }

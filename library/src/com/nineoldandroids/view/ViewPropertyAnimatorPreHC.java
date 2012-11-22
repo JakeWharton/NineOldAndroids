@@ -99,25 +99,8 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
      * on that list are added to the list of properties associated with that animator.
      */
     ArrayList<NameValuesHolder> mPendingAnimations = new ArrayList<NameValuesHolder>();
-
-    /**
-     * Constants used to associate a property being requested and the mechanism used to set
-     * the property (this class calls directly into View to set the properties in question).
-     */
-    private static final int NONE           = 0x0000;
-    private static final int TRANSLATION_X  = 0x0001;
-    private static final int TRANSLATION_Y  = 0x0002;
-    private static final int SCALE_X        = 0x0004;
-    private static final int SCALE_Y        = 0x0008;
-    private static final int ROTATION       = 0x0010;
-    private static final int ROTATION_X     = 0x0020;
-    private static final int ROTATION_Y     = 0x0040;
-    private static final int X              = 0x0080;
-    private static final int Y              = 0x0100;
-    private static final int ALPHA          = 0x0200;
-
-    private static final int TRANSFORM_MASK = TRANSLATION_X | TRANSLATION_Y | SCALE_X | SCALE_Y |
-            ROTATION | ROTATION_X | ROTATION_Y | X | Y;
+    private Runnable mPendingOnStartAction;
+    private Runnable mPendingOnEndAction;
 
     /**
      * The mechanism by which the user can request several properties that are then animated
@@ -185,6 +168,8 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
      */
     private HashMap<Animator, PropertyBundle> mAnimatorMap =
             new HashMap<Animator, PropertyBundle>();
+    private HashMap<Animator, Runnable> mAnimatorOnStartMap;
+    private HashMap<Animator, Runnable> mAnimatorOnEndMap;
 
     /**
      * This is the information we need to set each property during the animation.
@@ -287,6 +272,10 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
 
     @Override
     public void start() {
+        View v = mView.get();
+        if (v != null) {
+            v.removeCallbacks(mAnimationStarter);
+        }
         startAnimation();
     }
 
@@ -427,6 +416,36 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         return this;
     }
 
+    @Override
+    public ViewPropertyAnimator withLayer() {
+        // No-op on pre-HC.
+        return this;
+    }
+
+    @Override
+    public ViewPropertyAnimator withStartAction(Runnable runnable) {
+        View v = mView.get();
+        if (v != null) {
+            mPendingOnStartAction = runnable;
+            if (runnable != null && mAnimatorOnStartMap == null) {
+                mAnimatorOnStartMap = new HashMap<Animator, Runnable>();
+            }
+        }
+        return this;
+    }
+
+    @Override
+    public ViewPropertyAnimator withEndAction(Runnable runnable) {
+        View v = mView.get();
+        if (v != null) {
+            mPendingOnEndAction = runnable;
+            if (runnable != null && mAnimatorOnEndMap == null) {
+                mAnimatorOnEndMap = new HashMap<Animator, Runnable>();
+            }
+        }
+        return this;
+    }
+
     /**
      * Starts the underlying Animator for a set of properties. We use a single animator that
      * simply runs from 0 to 1, and then use that fractional value to set each property
@@ -444,6 +463,14 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             propertyMask |= nameValuesHolder.mNameConstant;
         }
         mAnimatorMap.put(animator, new PropertyBundle(propertyMask, nameValueList));
+        if (mPendingOnStartAction != null) {
+          mAnimatorOnStartMap.put(animator, mPendingOnStartAction);
+          mPendingOnStartAction = null;
+        }
+        if (mPendingOnEndAction != null) {
+          mAnimatorOnEndMap.put(animator, mPendingOnEndAction);
+          mPendingOnEndAction = null;
+        }
         animator.addUpdateListener(mAnimatorEventListener);
         animator.addListener(mAnimatorEventListener);
         if (mStartDelaySet) {
@@ -637,6 +664,12 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
             implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
         @Override
         public void onAnimationStart(Animator animation) {
+            if (mAnimatorOnStartMap != null) {
+                Runnable r = mAnimatorOnStartMap.get(animation);
+                if (r != null) {
+                    r.run();
+                }
+            }
             if (mListener != null) {
                 mListener.onAnimationStart(animation);
             }
@@ -646,6 +679,9 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         public void onAnimationCancel(Animator animation) {
             if (mListener != null) {
                 mListener.onAnimationCancel(animation);
+            }
+            if (mAnimatorOnEndMap != null) {
+                mAnimatorOnEndMap.remove(animation);
             }
         }
 
@@ -660,6 +696,12 @@ class ViewPropertyAnimatorPreHC extends ViewPropertyAnimator {
         public void onAnimationEnd(Animator animation) {
             if (mListener != null) {
                 mListener.onAnimationEnd(animation);
+            }
+            if (mAnimatorOnEndMap != null) {
+                Runnable r = mAnimatorOnEndMap.get(animation);
+                if (r != null) {
+                    r.run();
+                }
             }
             mAnimatorMap.remove(animation);
             // If the map is empty, it means all animation are done or canceled, so the listener

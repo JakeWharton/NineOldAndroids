@@ -33,6 +33,13 @@ import com.nineoldandroids.view.animation.AnimatorProxy;
  * are then determined internally and the animation will call these functions as necessary to
  * animate the property.
  *
+ * <div class="special reference">
+ * <h3>Developer Guides</h3>
+ * <p>For more information about animating with {@code ObjectAnimator}, read the
+ * <a href="{@docRoot}guide/topics/graphics/prop-animation.html#object-animator">Property
+ * Animation</a> developer guide.</p>
+ * </div>
+ *
  * @see #setPropertyName(String)
  *
  */

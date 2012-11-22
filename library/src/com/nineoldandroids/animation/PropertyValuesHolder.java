@@ -432,9 +432,12 @@ public class PropertyValuesHolder implements Cloneable {
                 }
             }
             // If we got here, then no appropriate function was found
-            Log.e("PropertyValuesHolder",
-                    "Couldn't find setter/getter for property " + mPropertyName +
-                            " with value type "+ mValueType);
+        }
+
+        if (returnVal == null) {
+            Log.w("PropertyValuesHolder", "Method " +
+                    getMethodName(prefix, mPropertyName) + "() with type " + mValueType +
+                    " not found on target class " + targetClass);
         }
 
         return returnVal;
@@ -515,7 +518,7 @@ public class PropertyValuesHolder implements Cloneable {
                 }
                 return;
             } catch (ClassCastException e) {
-                Log.e("PropertyValuesHolder","No such property (" + mProperty.getName() +
+                Log.w("PropertyValuesHolder","No such property (" + mProperty.getName() +
                         ") on target object " + target + ". Trying reflection instead");
                 mProperty = null;
             }
@@ -528,6 +531,10 @@ public class PropertyValuesHolder implements Cloneable {
             if (!kf.hasValue()) {
                 if (mGetter == null) {
                     setupGetter(targetClass);
+                    if (mGetter == null) {
+                        // Already logged the error - just return to avoid NPE
+                        return;
+                    }
                 }
                 try {
                     kf.setValue(mGetter.invoke(target));
@@ -555,6 +562,10 @@ public class PropertyValuesHolder implements Cloneable {
             if (mGetter == null) {
                 Class targetClass = target.getClass();
                 setupGetter(targetClass);
+                if (mGetter == null) {
+                    // Already logged the error - just return to avoid NPE
+                    return;
+                }
             }
             kf.setValue(mGetter.invoke(target));
         } catch (InvocationTargetException e) {
@@ -874,8 +885,9 @@ public class PropertyValuesHolder implements Cloneable {
             //        }
             //    }
             //} catch (NoSuchMethodError e) {
-            //    Log.d("PropertyValuesHolder",
-            //            "Can't find native method using JNI, use reflection" + e);
+            //    // Couldn't find it via JNI - try reflection next. Probably means the method
+            //    // doesn't exist, or the type is wrong. An error will be logged later if
+            //    // reflection fails as well.
             //} finally {
             //    mPropertyMapLock.writeLock().unlock();
             //}
@@ -1010,8 +1022,9 @@ public class PropertyValuesHolder implements Cloneable {
             //        }
             //    }
             //} catch (NoSuchMethodError e) {
-            //    Log.d("PropertyValuesHolder",
-            //            "Can't find native method using JNI, use reflection" + e);
+            //    // Couldn't find it via JNI - try reflection next. Probably means the method
+            //    // doesn't exist, or the type is wrong. An error will be logged later if
+            //    // reflection fails as well.
             //} finally {
             //    mPropertyMapLock.writeLock().unlock();
             //}
