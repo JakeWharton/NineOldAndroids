@@ -202,7 +202,7 @@ set.setDuration(5 * 1000).start();</pre>
 //Note: in order to use the ViewPropertyAnimator like this add the following import:
 //  import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 animate(myButton).setDuration(2000).rotationYBy(720).x(100).y(100);</pre>
-						<p>There are some caveats to using this API on versions of Andriod prior to Honeycomb:</p>
+						<p>There are some caveats to using this API on versions of Android prior to Honeycomb:</p>
 						<ul>
 							<li>The native <code>Property</code> class and its animation was introduced in Android 3.2 and is thus <strong>not</strong> included in this library. There is, however, a <code>com.nineoldandroids.util.Property</code> class which allows you to create custom properties on your own views for easier animation.</li>
 							<li><code>LayoutTransition</code> is not possible to implement prior to Android 3.0 and is not included.</li>
