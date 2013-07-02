@@ -256,7 +256,9 @@ public class AnimatorInflater {
                 if (fromType == TypedValue.TYPE_DIMENSION) {
                     valueFrom = a.getDimension(valueFromIndex, 0f);
                 } else {
-                    valueFrom = a.getFloat(valueFromIndex, 0f);
+                    TypedValue value = new TypedValue();
+                    a.getValue(valueFromIndex, value);
+                    valueFrom = value.type == TypedValue.TYPE_FLOAT ? value.data : -1;
                 }
                 if (hasTo) {
                     if (toType == TypedValue.TYPE_DIMENSION) {
