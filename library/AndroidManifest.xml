@@ -7,5 +7,7 @@
 	android:versionName="2.4.0">
 	
     <uses-sdk android:minSdkVersion="1" />
+    
+    <application />
 
 </manifest>
