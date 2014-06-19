@@ -828,7 +828,17 @@ public class PropertyValuesHolder implements Cloneable {
                 return;
             }
             if (mProperty != null) {
-                mProperty.set(target, mIntAnimatedValue);
+                try {
+                    if (mProperty instanceof IntProperty) {
+                        ((IntProperty) mProperty).set(target, mIntAnimatedValue);
+                    } else if (mProperty instanceof FloatProperty) {
+                        ((FloatProperty) mProperty).set(target, (float) mIntAnimatedValue);
+                    } else {
+                        mProperty.set(target, mIntAnimatedValue);
+                    }
+                } catch (ClassCastException e) {
+                    Log.e("PropertyValuesHolder", e.toString());
+                }
                 return;
             }
             //if (mJniSetter != 0) {
