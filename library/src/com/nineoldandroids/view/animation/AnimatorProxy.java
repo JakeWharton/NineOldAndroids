@@ -315,7 +315,7 @@ public final class AnimatorProxy extends Animation {
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         View view = mView.get();
         if (view != null) {
-            t.setAlpha(mAlpha);
+            t.setAlpha(Math.max(0, mAlpha));
             transformMatrix(t.getMatrix(), view);
         }
     }
