@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Attributes similar to attributes from Android animator framework. Copied to be used on any
+        version of Android without having build problems described here https://github.com/JakeWharton/NineOldAndroids/issues/80
+    -->
+    <declare-styleable name="PropertyAnimator">
+        <attr name="propertyName" format="string" />
+    </declare-styleable>
+    <declare-styleable name="AnimatorSet">
+        <attr name="ordering" format="enum">
+            <enum name="together" value="0" />
+            <enum name="sequentially" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="Animator">
+        <attr name="interpolator" format="reference" />
+        <attr name="duration" format="integer" />
+        <attr name="startOffset" format="integer" />
+        <attr name="repeatCount" format="integer" />
+        <attr name="repeatMode" format="enum">
+            <enum name="restart" value="1" />
+            <enum name="reverse" value="2" />
+        </attr>
+        <attr name="valueFrom" format="float|integer|color" />
+        <attr name="valueTo" format="float|integer|color" />
+        <attr name="valueType" format="enum">
+            <enum name="floatType" value="0" />
+            <enum name="intType" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

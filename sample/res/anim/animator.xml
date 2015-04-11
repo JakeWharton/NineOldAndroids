@@ -14,10 +14,10 @@
      limitations under the License.
 -->
 
-<animator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="1000"
-    android:valueFrom="1"
-    android:valueTo="0"
-    android:valueType="floatType"
-    android:repeatCount="1"
-    android:repeatMode="reverse"/>
+<animator xmlns:noa="http://schemas.android.com/apk/res-auto"
+    noa:duration="1000"
+    noa:valueFrom="1"
+    noa:valueTo="0"
+    noa:valueType="floatType"
+    noa:repeatCount="1"
+    noa:repeatMode="reverse"/>

@@ -17,13 +17,14 @@ package com.nineoldandroids.animation;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
-import android.content.res.Resources.NotFoundException;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.util.Xml;
 import android.view.animation.AnimationUtils;
+import com.nineoldandroids.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -40,35 +41,6 @@ import java.util.ArrayList;
  * <em>something</em> file.)
  */
 public class AnimatorInflater {
-    private static final int[] AnimatorSet = new int[] {
-        /* 0 */ android.R.attr.ordering,
-    };
-    private static final int AnimatorSet_ordering = 0;
-
-    private static final int[] PropertyAnimator = new int[] {
-        /* 0 */ android.R.attr.propertyName,
-    };
-    private static final int PropertyAnimator_propertyName = 0;
-
-    private static final int[] Animator = new int[] {
-        /* 0 */ android.R.attr.interpolator,
-        /* 1 */ android.R.attr.duration,
-        /* 2 */ android.R.attr.startOffset,
-        /* 3 */ android.R.attr.repeatCount,
-        /* 4 */ android.R.attr.repeatMode,
-        /* 5 */ android.R.attr.valueFrom,
-        /* 6 */ android.R.attr.valueTo,
-        /* 7 */ android.R.attr.valueType,
-    };
-    private static final int Animator_interpolator = 0;
-    private static final int Animator_duration = 1;
-    private static final int Animator_startOffset = 2;
-    private static final int Animator_repeatCount = 3;
-    private static final int Animator_repeatMode = 4;
-    private static final int Animator_valueFrom = 5;
-    private static final int Animator_valueTo = 6;
-    private static final int Animator_valueType = 7;
-
     /**
      * These flags are used when parsing AnimatorSet objects
      */
@@ -147,11 +119,10 @@ public class AnimatorInflater {
                 anim = loadAnimator(c, attrs, null);
             } else if (name.equals("set")) {
                 anim = new AnimatorSet();
-                TypedArray a = c.obtainStyledAttributes(attrs,
-                        /*com.android.internal.R.styleable.*/AnimatorSet);
+                TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.AnimatorSet);
 
                 TypedValue orderingValue = new TypedValue();
-                a.getValue(/*com.android.internal.R.styleable.*/AnimatorSet_ordering, orderingValue);
+                a.getValue(R.styleable.AnimatorSet_ordering, orderingValue);
                 int ordering = orderingValue.type == TypedValue.TYPE_INT_DEC ? orderingValue.data : TOGETHER;
 
                 createAnimatorFromXml(c, parser, attrs, (AnimatorSet) anim,  ordering);
@@ -192,9 +163,9 @@ public class AnimatorInflater {
         loadAnimator(context, attrs, anim);
 
         TypedArray a =
-                context.obtainStyledAttributes(attrs, /*com.android.internal.R.styleable.*/PropertyAnimator);
+                context.obtainStyledAttributes(attrs, R.styleable.PropertyAnimator);
 
-        String propertyName = a.getString(/*com.android.internal.R.styleable.*/PropertyAnimator_propertyName);
+        String propertyName = a.getString(R.styleable.PropertyAnimator_propertyName);
 
         anim.setPropertyName(propertyName);
 
@@ -214,13 +185,13 @@ public class AnimatorInflater {
             throws NotFoundException {
 
         TypedArray a =
-                context.obtainStyledAttributes(attrs, /*com.android.internal.R.styleable.*/Animator);
+                context.obtainStyledAttributes(attrs, R.styleable.Animator);
 
-        long duration = a.getInt(/*com.android.internal.R.styleable.*/Animator_duration, 0);
+        long duration = a.getInt(R.styleable.Animator_duration, 0);
 
-        long startDelay = a.getInt(/*com.android.internal.R.styleable.*/Animator_startOffset, 0);
+        long startDelay = a.getInt(R.styleable.Animator_startOffset, 0);
 
-        int valueType = a.getInt(/*com.android.internal.R.styleable.*/Animator_valueType,
+        int valueType = a.getInt(R.styleable.Animator_valueType,
                 VALUE_TYPE_FLOAT);
 
         if (anim == null) {
@@ -228,8 +199,8 @@ public class AnimatorInflater {
         }
         //TypeEvaluator evaluator = null;
 
-        int valueFromIndex = /*com.android.internal.R.styleable.*/Animator_valueFrom;
-        int valueToIndex = /*com.android.internal.R.styleable.*/Animator_valueTo;
+        int valueFromIndex = R.styleable.Animator_valueFrom;
+        int valueToIndex = R.styleable.Animator_valueTo;
 
         boolean getFloats = (valueType == VALUE_TYPE_FLOAT);
 
@@ -319,13 +290,13 @@ public class AnimatorInflater {
         anim.setDuration(duration);
         anim.setStartDelay(startDelay);
 
-        if (a.hasValue(/*com.android.internal.R.styleable.*/Animator_repeatCount)) {
+        if (a.hasValue(R.styleable.Animator_repeatCount)) {
             anim.setRepeatCount(
-                    a.getInt(/*com.android.internal.R.styleable.*/Animator_repeatCount, 0));
+                    a.getInt(R.styleable.Animator_repeatCount, 0));
         }
-        if (a.hasValue(/*com.android.internal.R.styleable.*/Animator_repeatMode)) {
+        if (a.hasValue(R.styleable.Animator_repeatMode)) {
             anim.setRepeatMode(
-                    a.getInt(/*com.android.internal.R.styleable.*/Animator_repeatMode,
+                    a.getInt(R.styleable.Animator_repeatMode,
                             ValueAnimator.RESTART));
         }
         //if (evaluator != null) {
@@ -333,7 +304,7 @@ public class AnimatorInflater {
         //}
 
         final int resID =
-                a.getResourceId(/*com.android.internal.R.styleable.*/Animator_interpolator, 0);
+                a.getResourceId(R.styleable.Animator_interpolator, 0);
         if (resID > 0) {
             anim.setInterpolator(AnimationUtils.loadInterpolator(context, resID));
         }

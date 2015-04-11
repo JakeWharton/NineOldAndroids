@@ -14,10 +14,10 @@
      limitations under the License.
 -->
 
-<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="1000"
-    android:valueTo="200"
-    android:valueType="floatType"
-    android:propertyName="y"
-    android:repeatCount="1"
-    android:repeatMode="reverse"/>
+<objectAnimator xmlns:noa="http://schemas.android.com/apk/res-auto"
+    noa:duration="1000"
+    noa:valueTo="200"
+    noa:valueType="floatType"
+    noa:propertyName="y"
+    noa:repeatCount="1"
+    noa:repeatMode="reverse"/>
