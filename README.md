@@ -1,8 +1,8 @@
 # DEPRECATED
 
-NineOldAndroids is deprecated. No new development will be taking place. Existing versions will (of course) continue
-to function. New applications should use `minSdkVersion="14"` or higher which has access to the platform animation
-APIs.
+NineOldAndroids is deprecated. No new development will be taking place. 
+Existing versions will (of course) continue to function. 
+New applications should use `minSdkVersion="14"` or higher which has access to the platform animation APIs.
 
 Thanks for all your support!
 
